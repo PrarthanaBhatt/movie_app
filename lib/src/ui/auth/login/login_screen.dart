@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app/src/routes/routes.dart';
-import 'package:movie_app/src/ui/dashboard/movie_dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -75,10 +74,6 @@ class _LoginScreen extends State<LoginScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         // Navigate the user to the Home page
-                        // Navigator.pushReplacement(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => const MovieDashboard()));
                         context.go(Routes.movieDashboard);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
