@@ -5,7 +5,7 @@ import 'package:movie_app/src/ui/dashboard/movie_dashboard.dart';
 
 class Routes {
   const Routes._();
-  static String loginScreen = "/";
+  static String loginScreen = "/login";
   static String movieDashboard = "/movie-dashboard";
 }
 
@@ -35,23 +35,3 @@ final GoRouter router = GoRouter(
     ),
   ),
 );
-
-/// The route configuration.
-// final GoRouter router = GoRouter(
-//   routes: <RouteBase>[
-//     GoRoute(
-//       path: '/',
-//       builder: (BuildContext context, GoRouterState state) {
-//         return const LoginScreen();
-//       },
-//       routes: <RouteBase>[
-//         GoRoute(
-//           path: 'movieDashboard',
-//           builder: (BuildContext context, GoRouterState state) {
-//             return const MovieDashboard();
-//           },
-//         ),
-//       ],
-//     ),
-//   ],
-// );
