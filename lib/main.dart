@@ -19,6 +19,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///RouteInformationParser- which takes the RouteInformation from RouteInformationProvider
+    ///and parses it into a user-defined data type.
+    ///
+    ///RouterDelegate — defines app-specific behavior of how the Router learns about changes in app state
+    /// and how it responds to them. Its job is to listen to the RouteInformationParser
+    /// and the app state and build the Navigator with the current list of Pages.
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routeInformationParser: router.routeInformationParser,
