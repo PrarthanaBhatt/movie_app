@@ -9,12 +9,12 @@ class LoginScreenVm extends BaseViewModel {
   LoginScreenVm(this.providerRef);
 
   void validateLogin(
-    String userEmailId,
+    String mobileNumber,
     String password,
     VoidCallback onSuccess,
     ValueChanged<String> onFailure,
   ) {
-    if (userEmailId == "p@gmail.com" && password == "Bhatt") {
+    if (mobileNumber == "7776871363" && password == "winjit") {
       changeUiState(ScreenState.content);
 
       onSuccess.call();

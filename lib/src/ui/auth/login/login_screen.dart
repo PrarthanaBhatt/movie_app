@@ -94,7 +94,7 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
-                    } else if (value.length <= 6) {
+                    } else if (value.length < 6) {
                       return 'Please enter password correctly, it is less then 6 charachters';
                     }
                     return null;
