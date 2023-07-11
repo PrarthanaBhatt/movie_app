@@ -5,7 +5,7 @@ import 'package:movie_app/src/ui/dashboard/movie_dashboard.dart';
 
 class Routes {
   const Routes._();
-  static String loginScreen = "/login";
+  static String loginScreen = "/";
   static String movieDashboard = "/movie-dashboard";
 }
 
