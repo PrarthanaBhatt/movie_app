@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app/src/components/base/base_consumer_state.dart';
+import 'package:movie_app/src/constants/enum/gender.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
 import 'package:movie_app/src/routes/routes.dart';
 import 'package:movie_app/src/ui/auth/registration/registration_screen_vm.dart';
@@ -23,11 +24,11 @@ class _RegistrationScreen
   TextEditingController regDobController = TextEditingController();
   TextEditingController regMobileNumberController = TextEditingController();
   TextEditingController regPasswordController = TextEditingController();
-
+  Gender gender = Gender.male;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: Form(
         key: _formKey,
         child: Padding(
@@ -58,7 +59,13 @@ class _RegistrationScreen
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                   child: TextFormField(
+                    textCapitalization: TextCapitalization.words,
+                    keyboardType: TextInputType.text,
                     controller: regNameController,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
+                      FilteringTextInputFormatter.deny(RegExp(r"^\s*")),
+                    ],
                     decoration: const InputDecoration(
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey),
@@ -144,6 +151,61 @@ class _RegistrationScreen
                     },
                   ),
                 ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Select Gender',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: RadioListTile(
+                        contentPadding: const EdgeInsets.all(0),
+                        title: const Text('Male'),
+                        value: Gender.male,
+                        groupValue: gender,
+                        onChanged: (value) {
+                          setState(() {
+                            gender = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    Flexible(
+                      child: RadioListTile(
+                        contentPadding: const EdgeInsets.all(0),
+                        title: const Text('Female'),
+                        value: Gender.female,
+                        groupValue: gender,
+                        onChanged: (value) {
+                          setState(() {
+                            gender = value!;
+                          });
+                        },
+                      ),
+                    ),
+                    Flexible(
+                      child: RadioListTile(
+                        contentPadding: const EdgeInsets.all(0),
+                        title: const Text('Others'),
+                        value: Gender.others,
+                        groupValue: gender,
+                        onChanged: (value) {
+                          setState(() {
+                            gender = value!;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
@@ -211,10 +273,15 @@ class _RegistrationScreen
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Registration Success')),
-                            );
+                            viewModel.validateRegistration(
+                                regNameController.text,
+                                regEmailController.text,
+                                regDobController.text,
+                                gender.name,
+                                regMobileNumberController.text,
+                                regPasswordController.text,
+                                _onSuccess,
+                                _onFailure);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -250,17 +317,20 @@ class _RegistrationScreen
   }
 
   void _disposeValues() {
+    regNameController.clear();
+    regEmailController.clear();
+    regDobController.clear();
     regMobileNumberController.clear();
     regPasswordController.clear();
   }
 
   void _onSuccess() {
-    context.go(Routes.movieDashboard);
+    context.go(Routes.loginScreen);
   }
 
   void _onFailure(String value) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Invalid Credientials!')),
+      const SnackBar(content: Text('Registration Failed !')),
     );
   }
 }

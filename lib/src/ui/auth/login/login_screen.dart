@@ -139,7 +139,7 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                     ),
                     onPressed: () {
                       //signup screen
-                      context.go(Routes.registrationScreen);
+                      context.push(Routes.registrationScreen);
                     },
                   )
                 ],
