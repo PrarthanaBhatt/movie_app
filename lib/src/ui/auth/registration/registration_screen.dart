@@ -1,13 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+
 import 'package:movie_app/src/components/base/base_consumer_state.dart';
 import 'package:movie_app/src/constants/enum/gender.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
 import 'package:movie_app/src/routes/routes.dart';
 import 'package:movie_app/src/ui/auth/registration/registration_screen_vm.dart';
-import 'package:intl/intl.dart';
 
 class RegistrationScreen extends ConsumerStatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -25,16 +27,7 @@ class _RegistrationScreen
   TextEditingController regMobileNumberController = TextEditingController();
   TextEditingController regPasswordController = TextEditingController();
   Gender gender = Gender.male;
-  String stateValue = 'Maharashtra';
-
-  var states = [
-    'Maharashtra',
-    'Gujarat',
-    'Karnataka',
-    'Tamil Nadu',
-    'Uttar Pradesh',
-  ];
-
+  String result = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -233,24 +226,11 @@ class _RegistrationScreen
                         ),
                       ),
                     ),
-                    Flexible(
-                      child: DropdownButton(
-                        isExpanded: true,
-                        value: stateValue,
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        items: states.map((String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(items),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            stateValue = newValue!;
-                          });
-                        },
-                      ),
-                    ),
+                    Flexible(child: MyWidget(
+                      getResult: (value) {
+                        result = value;
+                      },
+                    )),
                   ],
                 ),
                 Padding(
@@ -325,7 +305,7 @@ class _RegistrationScreen
                                 regEmailController.text,
                                 regDobController.text,
                                 gender.name,
-                                stateValue,
+                                result,
                                 regMobileNumberController.text,
                                 regPasswordController.text,
                                 _onSuccess,
@@ -379,6 +359,55 @@ class _RegistrationScreen
   void _onFailure(String value) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Registration Failed !')),
+    );
+  }
+}
+
+class MyWidget extends StatefulWidget {
+  Function(String) getResult;
+  MyWidget({
+    Key? key,
+    required this.getResult,
+  }) : super(key: key);
+
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  String stateValue = '';
+
+  @override
+  void initState() {
+    super.initState();
+    stateValue = 'Maharashtra';
+  }
+
+  var states = [
+    'Maharashtra',
+    'Gujarat',
+    'Karnataka',
+    'Tamil Nadu',
+    'Uttar Pradesh',
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton(
+      isExpanded: true,
+      value: stateValue,
+      icon: const Icon(Icons.keyboard_arrow_down),
+      items: states.map((String items) {
+        return DropdownMenuItem(
+          value: items,
+          child: Text(items),
+        );
+      }).toList(),
+      onChanged: (String? newValue) {
+        setState(() {
+          stateValue = newValue!;
+          widget.getResult.call(stateValue);
+        });
+      },
     );
   }
 }

@@ -17,7 +17,7 @@ class RegistrationScreenVm extends BaseViewModel {
     ValueChanged<String> onFailure,
   ) {
     print(
-        "Registration Values ==> \n Name : $regNameController , Email : $regEmailController, DOB: $regDobController, Gender : $gender, State : $stateValue, MbNumber : $regMobileNumberController, Password : $regPasswordController ");
+        "Registration Values ==> \n Name : $regNameController , Email : $regEmailController, DOB: $regDobController, Gender : $gender, MbNumber : $regMobileNumberController, Password : $regPasswordController ");
     changeUiState(ScreenState.content);
 
     onSuccess.call();
