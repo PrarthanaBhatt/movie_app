@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app/src/components/base/base_view_model.dart';
 import 'package:movie_app/src/constants/screen_state.dart';
 
 class LoginScreenVm extends BaseViewModel {
-  final ProviderRef providerRef;
-
-  LoginScreenVm(this.providerRef);
+  LoginScreenVm();
 
   void validateLogin(
     String mobileNumber,

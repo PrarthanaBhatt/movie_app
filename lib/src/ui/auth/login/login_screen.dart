@@ -134,11 +134,12 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                   const Text('Does not have account?'),
                   TextButton(
                     child: const Text(
-                      'Sign in',
+                      'Sign Up',
                       style: TextStyle(fontSize: 20),
                     ),
                     onPressed: () {
                       //signup screen
+                      context.go(Routes.registrationScreen);
                     },
                   )
                 ],
@@ -161,6 +162,17 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
   @override
   LoginScreenVm createModel() {
     return ref.read(loginScreenProvider);
+  }
+
+  @override
+  void dispose() {
+    _disposeValues();
+    super.dispose();
+  }
+
+  void _disposeValues() {
+    mobileNumberController.clear();
+    passwordController.clear();
   }
 
   void _onSuccess() {
