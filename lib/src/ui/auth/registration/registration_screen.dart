@@ -25,6 +25,16 @@ class _RegistrationScreen
   TextEditingController regMobileNumberController = TextEditingController();
   TextEditingController regPasswordController = TextEditingController();
   Gender gender = Gender.male;
+  String stateValue = 'Maharashtra';
+
+  var states = [
+    'Maharashtra',
+    'Gujarat',
+    'Karnataka',
+    'Tamil Nadu',
+    'Uttar Pradesh',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +48,7 @@ class _RegistrationScreen
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 120.0),
+                  padding: const EdgeInsets.only(top: 40.0),
                   child: Container(
                     height: 110.0,
                     width: 160.0,
@@ -206,6 +216,43 @@ class _RegistrationScreen
                     ),
                   ],
                 ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Flexible(
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 2, vertical: 12),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            'Select State',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: DropdownButton(
+                        isExpanded: true,
+                        value: stateValue,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: states.map((String items) {
+                          return DropdownMenuItem(
+                            value: items,
+                            child: Text(items),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            stateValue = newValue!;
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
@@ -278,6 +325,7 @@ class _RegistrationScreen
                                 regEmailController.text,
                                 regDobController.text,
                                 gender.name,
+                                stateValue,
                                 regMobileNumberController.text,
                                 regPasswordController.text,
                                 _onSuccess,
