@@ -54,16 +54,15 @@ class MovieDashboard extends ConsumerWidget {
 
                       return GestureDetector(
                         onTap: () {
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   SnackBar(content: Text(movies[index].title)),
-                          // );
-
-                          // context.go(Routes.movieDetails);
                           context.pushNamed(
                             Routes.movieDetails,
                             pathParameters: {
-                              "original_title": movie.title,
-                              "overview": movie.title,
+                              "overview": movie.overview,
+                              "backdropPath": movie.fullBannerImageUrl,
+                              "releaseDate": movie.releaseDate,
+                              "originalLanguage": movie.originalLanguage,
+                              // "voteAverage": movie.voteAverage.toString(),
+                              "originalTitle": movie.originalTitle
                             },
                           );
                         },

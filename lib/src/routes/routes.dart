@@ -18,7 +18,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
 
 final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: Routes.loginScreen,
+  initialLocation: Routes.movieDashboard,
   routes: <RouteBase>[
     GoRoute(
       path: Routes.registrationScreen,
@@ -40,11 +40,16 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       name: Routes.movieDetails,
-      path: "/movie-details/:original_title/:overview",
+      path:
+          "/movie-details/:overview/:releaseDate/:backdropPath/:originalLanguage/:originalTitle",
       builder: (BuildContext context, GoRouterState state) {
         return MovieDetails(
-          originalTitle: state.pathParameters['original_title'] ?? "",
           overview: state.pathParameters['overview'] ?? "",
+          backdropPath: state.pathParameters['backdropPath'] ?? "",
+          releaseDate: state.pathParameters['releaseDate'] ?? "",
+          originalLanguage: state.pathParameters['originalLanguage'] ?? "",
+          // voteAverage: state.pathParameters['voteAverage'] ?? "",
+          originalTitle: state.pathParameters['originalTitle'] ?? "",
         );
       },
     ),
