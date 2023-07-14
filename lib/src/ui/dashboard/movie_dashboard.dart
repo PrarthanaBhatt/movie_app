@@ -2,9 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_app/src/ui/dashboard/movie.dart';
-import 'package:movie_app/src/ui/dashboard/movie_exception.dart';
-import 'package:movie_app/src/ui/dashboard/movie_service.dart';
+import 'package:go_router/go_router.dart';
+import 'package:movie_app/src/models/movie.dart';
+import 'package:movie_app/src/network/movie_exception.dart';
+import 'package:movie_app/src/network/movie_service.dart';
+import 'package:movie_app/src/routes/routes.dart';
 
 final moviesFutureProvider =
     FutureProvider.autoDispose<List<Movie>>((ref) async {
@@ -52,8 +54,17 @@ class MovieDashboard extends ConsumerWidget {
 
                       return GestureDetector(
                         onTap: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(movies[index].title)),
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   SnackBar(content: Text(movies[index].title)),
+                          // );
+
+                          // context.go(Routes.movieDetails);
+                          context.pushNamed(
+                            Routes.movieDetails,
+                            pathParameters: {
+                              "original_title": movie.title,
+                              "overview": movie.title,
+                            },
                           );
                         },
                         child: _MovieBox(movie: movie),
@@ -98,23 +109,27 @@ class _MovieBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Image.network(
-            movie.fullImageUrl,
-            fit: BoxFit.cover,
-            width: double.maxFinite,
+    return Card(
+      elevation: 0,
+      color: Theme.of(context).colorScheme.surfaceVariant,
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Image.network(
+              movie.fullImageUrl,
+              fit: BoxFit.cover,
+              width: double.maxFinite,
+            ),
           ),
-        ),
-        Positioned(
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: _FrontBanner(text: movie.title),
-        ),
-      ],
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: _FrontBanner(text: movie.title),
+          ),
+        ],
+      ),
     );
   }
 }

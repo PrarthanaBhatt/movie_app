@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_app/src/ui/dashboard/movie.dart';
-import 'package:movie_app/src/ui/dashboard/movie_exception.dart';
+import 'package:movie_app/src/models/movie.dart';
+import 'package:movie_app/src/network/movie_exception.dart';
 import 'package:movie_app/src/utils/enviroment_config.dart';
 
 final movieServiceProvider = Provider<MovieService>((ref) {
