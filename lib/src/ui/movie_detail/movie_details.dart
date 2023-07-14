@@ -75,7 +75,6 @@ class _MovieDetailsState extends ConsumerState<MovieDetails> {
                       style: const TextStyle(fontSize: 12),
                     ),
                   ),
-                  // Text(widget.voteAverage),
                 ],
               ),
             ),

@@ -7,7 +7,6 @@ class Movie {
   String backdropPath;
   String releaseDate;
   String originalLanguage;
-  // int voteAverage;
   String originalTitle;
 
   Movie({
@@ -17,7 +16,6 @@ class Movie {
     required this.backdropPath,
     required this.releaseDate,
     required this.originalLanguage,
-    // required this.voteAverage,
     required this.originalTitle,
   });
 
@@ -33,7 +31,6 @@ class Movie {
       'backdrop_path': backdropPath,
       'release_date': releaseDate,
       'original_language': originalLanguage,
-      // 'vote_average': voteAverage,
       'original_title': originalTitle,
     };
   }
@@ -46,7 +43,6 @@ class Movie {
       backdropPath: map['backdrop_path'],
       releaseDate: map['release_date'],
       originalLanguage: map['original_language'],
-      // voteAverage: map['vote_average'],
       originalTitle: map['original_title'],
     );
   }

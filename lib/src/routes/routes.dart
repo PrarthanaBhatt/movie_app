@@ -48,7 +48,6 @@ final GoRouter router = GoRouter(
           backdropPath: state.pathParameters['backdropPath'] ?? "",
           releaseDate: state.pathParameters['releaseDate'] ?? "",
           originalLanguage: state.pathParameters['originalLanguage'] ?? "",
-          // voteAverage: state.pathParameters['voteAverage'] ?? "",
           originalTitle: state.pathParameters['originalTitle'] ?? "",
         );
       },
