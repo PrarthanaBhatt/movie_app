@@ -42,13 +42,23 @@ class MovieDashboard extends ConsumerWidget {
                   onRefresh: () async {
                     return ref.refresh(moviesFutureProvider);
                   },
-                  child: GridView.extent(
-                    maxCrossAxisExtent: 200,
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                    childAspectRatio: 0.7,
-                    children:
-                        movies.map((movie) => _MovieBox(movie: movie)).toList(),
+                  child: ListView.builder(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                    itemCount: movies.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final movie = movies[index];
+
+                      return GestureDetector(
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(movies[index].title)),
+                          );
+                        },
+                        child: _MovieBox(movie: movie),
+                      );
+                    },
                   ),
                 );
               },
@@ -90,10 +100,13 @@ class _MovieBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Image.network(
-          movie.fullImageUrl,
-          fit: BoxFit.cover,
-          width: double.infinity,
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Image.network(
+            movie.fullImageUrl,
+            fit: BoxFit.cover,
+            width: double.maxFinite,
+          ),
         ),
         Positioned(
           bottom: 0,
@@ -116,17 +129,20 @@ class _FrontBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-        child: Container(
-          color: Colors.grey.shade200.withOpacity(0.5),
-          height: 60,
-          child: Center(
-            child: Text(
-              text,
-              style: Theme.of(context).textTheme.bodyText2,
-              textAlign: TextAlign.center,
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+          child: Container(
+            color: Colors.grey.shade200.withOpacity(0.5),
+            height: 60,
+            child: Center(
+              child: Text(
+                text,
+                style: Theme.of(context).textTheme.bodyText2,
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         ),
