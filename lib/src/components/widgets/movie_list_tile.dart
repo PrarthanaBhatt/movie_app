@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:movie_app/src/components/widgets/movie_title_widget.dart';
 import 'package:movie_app/src/models/movie.dart';
 
 class MovieListTile extends StatelessWidget {
@@ -12,21 +11,63 @@ class MovieListTile extends StatelessWidget {
     return Card(
       elevation: 0,
       color: Theme.of(context).colorScheme.surfaceVariant,
-      child: Stack(
+      child: Row(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Image.network(
-              movie.fullImageUrl,
-              fit: BoxFit.cover,
-              width: double.maxFinite,
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Image.network(
+                movie.fullImageUrl,
+                fit: BoxFit.cover,
+                width: 80,
+              ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: MovieTitleWidget(text: movie.title),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.10,
+            width: MediaQuery.of(context).size.width * 0.55,
+            child: Column(
+              children: [
+                Flexible(
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      movie.title,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.all(4.0),
+                        child: Icon(
+                          Icons.favorite,
+                          color: Colors.black45,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(4.0),
+                        child: Icon(
+                          Icons.add_circle_outline,
+                          color: Colors.black45,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(4.0),
+                        child: Icon(
+                          Icons.remove_circle_outline,
+                          color: Colors.black45,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
