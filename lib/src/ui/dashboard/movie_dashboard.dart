@@ -32,9 +32,7 @@ class MovieDashboard extends ConsumerWidget {
               padding: const EdgeInsets.all(20.0),
               child: GestureDetector(
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('clicked ')),
-                    );
+                    context.push(Routes.addMovie);
                   },
                   child: const Icon(Icons.add)),
             ),

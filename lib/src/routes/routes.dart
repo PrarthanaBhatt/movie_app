@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie_app/src/ui/add_movie/add_movie.dart';
 import 'package:movie_app/src/ui/auth/login/login_screen.dart';
 import 'package:movie_app/src/ui/auth/registration/registration_screen.dart';
 import 'package:movie_app/src/ui/dashboard/movie_dashboard.dart';
@@ -11,6 +12,7 @@ class Routes {
   static String movieDashboard = "/movie-dashboard";
   static String registrationScreen = "/registration";
   static String movieDetails = "/movie-details";
+  static String addMovie = "/add-movie";
 }
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -50,6 +52,12 @@ final GoRouter router = GoRouter(
           originalLanguage: state.pathParameters['originalLanguage'] ?? "",
           originalTitle: state.pathParameters['originalTitle'] ?? "",
         );
+      },
+    ),
+    GoRoute(
+      path: Routes.addMovie,
+      builder: (BuildContext context, GoRouterState state) {
+        return const AddMovie();
       },
     ),
   ],
