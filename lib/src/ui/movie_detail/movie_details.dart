@@ -86,21 +86,21 @@ class _MovieDetailsState extends ConsumerState<MovieDetails> {
             ],
           ),
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (context, index) => ListTile(
-              tileColor: (index % 2 == 0) ? Colors.white : Colors.green[50],
-              title: Center(
-                child: Text('$index',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 50,
-                        color: Colors.black45)),
-              ),
-            ),
-            childCount: 21,
-          ),
-        )
+        // SliverList(
+        //   delegate: SliverChildBuilderDelegate(
+        //     (context, index) => ListTile(
+        //       tileColor: (index % 2 == 0) ? Colors.white : Colors.green[50],
+        //       title: Center(
+        //         child: Text('$index',
+        //             style: const TextStyle(
+        //                 fontWeight: FontWeight.normal,
+        //                 fontSize: 50,
+        //                 color: Colors.black45)),
+        //       ),
+        //     ),
+        //     childCount: 21,
+        //   ),
+        // )
       ],
     ));
   }

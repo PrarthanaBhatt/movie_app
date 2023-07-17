@@ -7,11 +7,9 @@ import 'package:movie_app/src/network/movie_service.dart';
 import 'package:movie_app/src/routes/routes.dart';
 import 'package:movie_app/src/components/widgets/movie_list_tile.dart';
 import 'package:movie_app/src/components/widgets/error_body.dart';
+import 'package:movie_app/src/ui/add_movie/add_movie.dart';
 
-final moviesFutureProvider =
-    FutureProvider.autoDispose<List<Movie>>((ref) async {
-  ref.maintainState = true;
-
+final moviesFutureProvider = FutureProvider<List<Movie>>((ref) async {
   final movieService = ref.read(movieServiceProvider);
   final movies = await movieService.getMovies();
 
@@ -31,8 +29,15 @@ class MovieDashboard extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: GestureDetector(
-                  onTap: () {
-                    context.push(Routes.addMovie);
+                  onTap: () async {
+                    // context.push(Routes.addMovie);
+                    var result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AddMovie()),
+                    );
+                    if (result != null) {
+                      print('Received data: ${result.toJson()}');
+                    }
                   },
                   child: const Icon(Icons.add)),
             ),

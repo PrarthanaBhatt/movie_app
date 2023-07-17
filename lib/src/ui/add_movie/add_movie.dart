@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:movie_app/src/models/movie.dart';
+import 'package:movie_app/src/ui/dashboard/movie_dashboard.dart';
 
 class AddMovie extends ConsumerStatefulWidget {
   const AddMovie({super.key});
@@ -16,9 +18,11 @@ class _AddMovieState extends ConsumerState<AddMovie> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController movieNameController = TextEditingController();
   File? image;
-
+  final List<Movie> _records = [];
   @override
   Widget build(BuildContext context) {
+    final getMovieList = ref.read(moviesFutureProvider);
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -104,10 +108,21 @@ class _AddMovieState extends ConsumerState<AddMovie> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            movieNameController.text;
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(movieNameController.text)),
-                            );
+                            final holder = Movie(
+                                title: movieNameController.text,
+                                posterPath: image.toString(),
+                                overview: "overview",
+                                backdropPath: "backdropPath",
+                                releaseDate: "releaseDate",
+                                originalLanguage: "originalLanguage",
+                                originalTitle: movieNameController.text);
+                            print("Holder ==> ${holder.toJson()}");
+                            _records.add(holder);
+                            // final records = getMovieList as List<Movie>;
+                            // records.add(holder);
+                            ChangeNotifier();
+                            // Navigator.pop(context);
+                            Navigator.pop(context, holder);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -131,3 +146,5 @@ class _AddMovieState extends ConsumerState<AddMovie> {
     );
   }
 }
+
+// Holder ==> {"title":"Asdf","poster_path":"File: '/data/user/0/com.example.movie_app/cache/349e9aac-99c6-4356-abd3-93ef1052f978/IMG-20230717-WA0001.jpg'","overview":"overview","backdrop_path":"backdropPath","release_date":"releaseDate","original_language":"originalLanguage","original_title":"Asdf"}
