@@ -32,6 +32,12 @@ class _MovieDetailsState extends ConsumerState<MovieDetails> {
           backgroundColor: Colors.black87,
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
+            title: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Text(widget.originalTitle),
+            ),
+            titlePadding:
+                const EdgeInsetsDirectional.only(start: 60, bottom: 15),
             centerTitle: true,
             background: Image.network(
               widget.backdropPath,
@@ -48,13 +54,6 @@ class _MovieDetailsState extends ConsumerState<MovieDetails> {
                 padding: const EdgeInsets.all(12),
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        widget.originalTitle,
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
