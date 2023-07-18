@@ -10,6 +10,7 @@ final movieServiceProvider = Provider<MovieService>((ref) {
 class MovieService {
   Dio? _dio;
   Movie? resultVal;
+  List<Movie?>? getList;
 
   MovieService() {
     _dio = Dio();
@@ -35,7 +36,7 @@ class MovieService {
     }
   }
 
-  getValue(Movie result, List<Movie?> updatedList) {
+  List<Movie?> getValue(Movie result, List<Movie?> updatedList) {
     resultVal = result;
     updatedList = updatedList.toList();
 
