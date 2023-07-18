@@ -138,5 +138,3 @@ class _AddMovieState extends ConsumerState<AddMovie> {
     );
   }
 }
-
-// Holder ==> {"title":"Asdf","poster_path":"File: '/data/user/0/com.example.movie_app/cache/349e9aac-99c6-4356-abd3-93ef1052f978/IMG-20230717-WA0001.jpg'","overview":"overview","backdrop_path":"backdropPath","release_date":"releaseDate","original_language":"originalLanguage","original_title":"Asdf"}
