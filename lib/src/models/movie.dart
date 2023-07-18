@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 class Movie {
   String title;
@@ -8,16 +9,17 @@ class Movie {
   String releaseDate;
   String originalLanguage;
   String originalTitle;
+  File? imagePath;
 
-  Movie({
-    required this.title,
-    required this.posterPath,
-    required this.overview,
-    required this.backdropPath,
-    required this.releaseDate,
-    required this.originalLanguage,
-    required this.originalTitle,
-  });
+  Movie(
+      {required this.title,
+      required this.posterPath,
+      required this.overview,
+      required this.backdropPath,
+      required this.releaseDate,
+      required this.originalLanguage,
+      required this.originalTitle,
+      this.imagePath});
 
   String get fullImageUrl => 'https://image.tmdb.org/t/p/w200$posterPath';
   String get fullBannerImageUrl =>

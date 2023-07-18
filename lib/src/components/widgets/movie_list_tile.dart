@@ -1,10 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+
 import 'package:movie_app/src/models/movie.dart';
 
 class MovieListTile extends StatelessWidget {
   final Movie movie;
-
-  const MovieListTile({Key? key, required this.movie}) : super(key: key);
+  const MovieListTile({
+    Key? key,
+    required this.movie,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +19,33 @@ class MovieListTile extends StatelessWidget {
       color: Theme.of(context).colorScheme.surfaceVariant,
       child: Row(
         children: [
-          Flexible(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Image.network(
-                movie.fullImageUrl,
-                fit: BoxFit.cover,
-                width: 80,
-              ),
-            ),
-          ),
+          (movie.imagePath != null)
+              ? Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.20,
+                      height: MediaQuery.of(context).size.height * 0.15,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        image: DecorationImage(
+                          image: FileImage(movie.imagePath ?? File('')),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              : Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Image.network(
+                      movie.fullImageUrl,
+                      fit: BoxFit.cover,
+                      width: 80,
+                    ),
+                  ),
+                ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.10,
             width: MediaQuery.of(context).size.width * 0.55,

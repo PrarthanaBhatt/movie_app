@@ -83,11 +83,11 @@ class _AddMovieState extends ConsumerState<AddMovie> {
                       icon: const Icon(Icons.add_a_photo_outlined, size: 55.0),
                       onPressed: () async {
                         try {
-                          final image = await ImagePicker()
+                          final XFile? xFile = await ImagePicker()
                               .pickImage(source: ImageSource.gallery);
-                          if (image == null) return;
-                          final imageTemp = File(image.path);
-                          setState(() => this.image = imageTemp);
+
+                          if (xFile == null) return;
+                          setState(() => image = File(xFile.path));
                         } on PlatformException catch (e) {
                           print('Failed to pick image: $e');
                         }
@@ -111,9 +111,9 @@ class _AddMovieState extends ConsumerState<AddMovie> {
                                 backdropPath: "backdropPath",
                                 releaseDate: "releaseDate",
                                 originalLanguage: "originalLanguage",
-                                originalTitle: movieNameController.text);
-                            print("Holder ==> ${holder.toJson()}");
-                            ChangeNotifier();
+                                originalTitle: movieNameController.text,
+                                imagePath: image);
+                            print("Holder ==> ${holder.toString()}");
                             Navigator.pop(context, holder);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
