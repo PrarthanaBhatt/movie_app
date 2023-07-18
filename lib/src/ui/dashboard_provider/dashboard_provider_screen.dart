@@ -20,22 +20,23 @@ FutureProvider<List<Movie>> moviesFutureProvider =
   return movies;
 });
 
-class MovieDashboard extends ConsumerStatefulWidget {
-  const MovieDashboard({super.key});
+class DashboardProvider extends ConsumerStatefulWidget {
+  const DashboardProvider({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _MovieDashboardState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _DashboardProviderState();
 }
 
-class _MovieDashboardState
-    extends BaseConsumerState<MovieDashboard, MovieDashboardVm> {
+class _DashboardProviderState
+    extends BaseConsumerState<DashboardProvider, MovieDashboardVm> {
   @override
   Widget build(BuildContext context) {
     MovieService movieService = ref.read(movieServiceProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        title: const Text("Dashboard Provider"),
         backgroundColor: Colors.black45,
         actions: [
           Padding(
