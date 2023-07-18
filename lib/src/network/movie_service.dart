@@ -37,11 +37,8 @@ class MovieService {
     }
   }
 
-  List<Movie?> getValue(Movie result, List<Movie?> updatedList) {
+  Movie? getValue(Movie result) {
     resultVal = result;
-    updatedList = updatedList.toList();
-
-    updatedList.add(resultVal);
-    return updatedList;
+    return resultVal;
   }
 }

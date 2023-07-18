@@ -48,13 +48,8 @@ class _MovieDashboardState
                   );
 
                   if (result != null) {
-                    print('Received data: ${result.toJson()}');
-                    final List<Movie> updatedList =
-                        await movieService.getMovies();
-                    movieService.getValue(result, updatedList);
+                    movieService.getValue(result);
                     ref.refresh(moviesFutureProvider);
-                    print(
-                        'Get Value Result: ${movieService.getValue(result, updatedList)}');
                   }
                 },
                 child: const Icon(Icons.add)),
@@ -73,7 +68,6 @@ class _MovieDashboardState
               child: CircularProgressIndicator(),
             ),
             data: (movies) {
-              print(movies);
               return RefreshIndicator(
                 onRefresh: () async {
                   return ref.refresh(moviesFutureProvider);

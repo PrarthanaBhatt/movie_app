@@ -106,14 +106,13 @@ class _AddMovieState extends ConsumerState<AddMovie> {
                           if (_formKey.currentState!.validate()) {
                             final holder = Movie(
                                 title: movieNameController.text,
-                                posterPath: image.toString(),
-                                overview: "overview",
-                                backdropPath: "backdropPath",
-                                releaseDate: "releaseDate",
-                                originalLanguage: "originalLanguage",
+                                posterPath: "",
+                                overview: "",
+                                backdropPath: "",
+                                releaseDate: "",
+                                originalLanguage: "",
                                 originalTitle: movieNameController.text,
                                 imagePath: image);
-                            print("Holder ==> ${holder.toString()}");
                             Navigator.pop(context, holder);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
