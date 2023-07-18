@@ -11,7 +11,7 @@ import 'package:movie_app/src/ui/add_movie/add_movie.dart';
 
 final moviesFutureProvider = FutureProvider<List<Movie>>((ref) async {
   final movieService = ref.read(movieServiceProvider);
-  final movies = await movieService.getMovies();
+  final List<Movie> movies = await movieService.getMovies();
 
   return movies;
 });
@@ -21,6 +21,7 @@ class MovieDashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final movieService = ref.read(movieServiceProvider);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Home"),
@@ -37,6 +38,13 @@ class MovieDashboard extends ConsumerWidget {
                     );
                     if (result != null) {
                       print('Received data: ${result.toJson()}');
+                      final List<Movie> updatedList =
+                          await movieService.getMovies();
+                      movieService.getValue(result, updatedList);
+                      ChangeNotifier();
+                      print(
+                          'Get Value Result: ${movieService.getValue(result, updatedList)}');
+                      //Get Value Result: null
                     }
                   },
                   child: const Icon(Icons.add)),
@@ -63,6 +71,7 @@ class MovieDashboard extends ConsumerWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                     itemCount: movies.length,
+                    // itemCount: 18,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       final movie = movies[index];
