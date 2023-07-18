@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:movie_app/src/models/movie.dart';
-import 'package:movie_app/src/ui/dashboard/movie_dashboard.dart';
 
 class AddMovie extends ConsumerStatefulWidget {
   const AddMovie({super.key});
@@ -18,11 +17,8 @@ class _AddMovieState extends ConsumerState<AddMovie> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController movieNameController = TextEditingController();
   File? image;
-  final List<Movie> _records = [];
   @override
   Widget build(BuildContext context) {
-    final getMovieList = ref.read(moviesFutureProvider);
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -117,11 +113,7 @@ class _AddMovieState extends ConsumerState<AddMovie> {
                                 originalLanguage: "originalLanguage",
                                 originalTitle: movieNameController.text);
                             print("Holder ==> ${holder.toJson()}");
-                            _records.add(holder);
-                            // final records = getMovieList as List<Movie>;
-                            // records.add(holder);
                             ChangeNotifier();
-                            // Navigator.pop(context);
                             Navigator.pop(context, holder);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(

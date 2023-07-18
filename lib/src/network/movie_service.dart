@@ -26,12 +26,13 @@ class MovieService {
 
       final results = List<Map<String, dynamic>>.from(response.data['results']);
 
-      List<Movie> movies = results
-          .map((movieData) => Movie.fromMap(movieData))
-          .toList(growable: false);
-
+      List<Movie> movies =
+          results.map((movieData) => Movie.fromMap(movieData)).toList();
+      if (resultVal != null) {
+        movies.add(resultVal!);
+      }
       return movies;
-    } on DioError catch (dioError) {
+    } on DioException catch (dioError) {
       throw MoviesException.fromDioError(dioError);
     }
   }
