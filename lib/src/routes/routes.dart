@@ -5,6 +5,7 @@ import 'package:movie_app/src/ui/auth/login/login_screen.dart';
 import 'package:movie_app/src/ui/auth/registration/registration_screen.dart';
 import 'package:movie_app/src/ui/dashboard/movie_dashboard.dart';
 import 'package:movie_app/src/ui/dashboard_provider/dashboard_provider_screen.dart';
+import 'package:movie_app/src/ui/dashboard_provider/state_provider_demo.dart';
 import 'package:movie_app/src/ui/movie_detail/movie_details.dart';
 
 class Routes {
@@ -15,6 +16,7 @@ class Routes {
   static String movieDetails = "/movie-details";
   static String addMovie = "/add-movie";
   static String dashboardProvider = "/dashboard-provider";
+  static String stateProviderDemoScreen = "/state-provider-demo-screen";
 }
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -22,7 +24,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
 
 final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: Routes.dashboardProvider,
+  initialLocation: Routes.stateProviderDemoScreen,
   routes: <RouteBase>[
     GoRoute(
       path: Routes.registrationScreen,
@@ -66,6 +68,12 @@ final GoRouter router = GoRouter(
       path: Routes.dashboardProvider,
       builder: (BuildContext context, GoRouterState state) {
         return const DashboardProvider();
+      },
+    ),
+    GoRoute(
+      path: Routes.stateProviderDemoScreen,
+      builder: (BuildContext context, GoRouterState state) {
+        return const StateProviderDemo();
       },
     ),
   ],
