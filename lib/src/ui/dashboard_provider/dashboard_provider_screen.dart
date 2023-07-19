@@ -11,14 +11,7 @@ import 'package:movie_app/src/providers/view_model_providers.dart';
 import 'package:movie_app/src/routes/routes.dart';
 import 'package:movie_app/src/ui/add_movie/add_movie.dart';
 import 'package:movie_app/src/ui/dashboard/movie_dashboard_vm.dart';
-
-FutureProvider<List<Movie>> moviesFutureProvider =
-    FutureProvider<List<Movie>>((ref) async {
-  MovieService movieService = ref.read(movieServiceProvider);
-  List<Movie> movies = await movieService.getMovies();
-
-  return movies;
-});
+import 'package:movie_app/src/ui/dashboard_provider/dashboard_provider_notifier.dart';
 
 class DashboardProvider extends ConsumerStatefulWidget {
   const DashboardProvider({super.key});
