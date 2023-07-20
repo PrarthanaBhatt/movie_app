@@ -28,9 +28,9 @@ class MovieService {
 
       List<Movie> movies =
           results.map((movieData) => Movie.fromMap(movieData)).toList();
-      if (resultVal != null) {
-        movies.add(resultVal!);
-      }
+      // if (resultVal != null) {
+      //   movies.add(resultVal!);
+      // }
       return movies;
     } on DioException catch (dioError) {
       throw MoviesException.fromDioError(dioError);

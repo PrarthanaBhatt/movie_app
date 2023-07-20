@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FruitsNotifier extends StateNotifier<List<String>> {
-  FruitsNotifier() : super([]);
+  FruitsNotifier() : super(['Apple']);
 
   void add(String name) {
     state = [...state, name];

@@ -5,21 +5,18 @@ import 'package:movie_app/src/network/movie_service.dart';
 class MovieNotifier extends StateNotifier<List<Movie>> {
   List<Movie> movie = [];
 
-  // MovieNotifier(super.state);
-  MovieNotifier() : super([]);
-
-  // MovieNotifier([List<Movie>? state]) : super(state ?? <Movie>[]);
+  MovieNotifier(List<Movie>? state) : super(state ?? <Movie>[]);
 
   void add(Movie addMovie) {
     state = [...state, addMovie];
   }
 }
 
-final a = StateNotifierProvider<StateNotifier<int>, int>(
-    (ref) => 1 as StateNotifier<int>);
-
-final movieProvider = StateNotifierProvider<MovieNotifier, List<Movie>>((ref) {
-  return MovieNotifier();
+final StateNotifierProvider<MovieNotifier, List<Movie>> movieProvider =
+    StateNotifierProvider<MovieNotifier, List<Movie>>((ref) {
+  final AsyncValue<List<Movie>> dataFuture = ref.watch(moviesFutureProvider);
+  final List<Movie>? initialData = dataFuture.value; // future provider
+  return MovieNotifier(initialData);
 });
 
 FutureProvider<List<Movie>> moviesFutureProvider =
