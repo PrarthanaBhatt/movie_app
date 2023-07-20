@@ -47,6 +47,7 @@ class StateNotifierProviderList extends ConsumerWidget {
   }
 }
 
+//NOTE: DON'T Remove below is demo for using consumer widget
 //Using consumer widget
 // import 'dart:math';
 

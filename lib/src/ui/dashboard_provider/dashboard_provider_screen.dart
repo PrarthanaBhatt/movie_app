@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app/src/components/base/base_consumer_state.dart';
 import 'package:movie_app/src/components/widgets/movie_list_tile.dart';
+import 'package:movie_app/src/models/movie.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
 import 'package:movie_app/src/routes/routes.dart';
 import 'package:movie_app/src/ui/add_movie/add_movie.dart';
@@ -21,7 +22,7 @@ class _DashboardProviderState
     extends BaseConsumerState<DashboardProvider, MovieDashboardVm> {
   @override
   Widget build(BuildContext context) {
-    final movieService = ref.watch(movieProvider);
+    final List<Movie> movieService = ref.watch(movieProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -50,7 +51,7 @@ class _DashboardProviderState
         itemCount: movieService.length,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          final movie = movieService[index];
+          final Movie movie = movieService[index];
 
           return GestureDetector(
             onTap: () {

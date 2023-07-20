@@ -10,7 +10,7 @@ final StateProvider<String> selectedButtonProvider =
 
 final Provider<bool> isRedProvider = Provider<bool>((ref) {
   //inside provider you can do any calculations checkings based on that it returns something
-  final color = ref.watch(selectedButtonProvider);
+  final String color = ref.watch(selectedButtonProvider);
   return color == 'red'; //if color red then its true
 });
 
