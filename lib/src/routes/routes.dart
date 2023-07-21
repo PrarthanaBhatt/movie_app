@@ -26,7 +26,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
 
 final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: Routes.dashboardProvider,
+  initialLocation: Routes.stateProviderDemoScreen,
   routes: <RouteBase>[
     GoRoute(
       path: Routes.registrationScreen,
