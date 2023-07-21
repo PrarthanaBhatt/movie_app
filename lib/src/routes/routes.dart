@@ -4,6 +4,7 @@ import 'package:movie_app/src/ui/add_movie/add_movie.dart';
 import 'package:movie_app/src/ui/auth/login/login_screen.dart';
 import 'package:movie_app/src/ui/auth/registration/registration_screen.dart';
 import 'package:movie_app/src/ui/dashboard/movie_dashboard.dart';
+import 'package:movie_app/src/ui/dashboard_provider/dashboard_consumer_screen.dart';
 import 'package:movie_app/src/ui/dashboard_provider/dashboard_provider_screen.dart';
 import 'package:movie_app/src/ui/dashboard_provider/state_notifier_provider_list/state_notifier_provider_list.dart';
 import 'package:movie_app/src/ui/dashboard_provider/state_provider_demo.dart';
@@ -19,6 +20,7 @@ class Routes {
   static String dashboardProvider = "/dashboard-provider";
   static String stateProviderDemoScreen = "/state-provider-demo-screen";
   static String stateNotifierProviderList = "/state-notifier-provider-list";
+  static String dashboardConsumerScreen = "/dashboard-consumer-screen";
 }
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -26,7 +28,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
 
 final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: Routes.stateProviderDemoScreen,
+  initialLocation: Routes.dashboardConsumerScreen,
   routes: <RouteBase>[
     GoRoute(
       path: Routes.registrationScreen,
@@ -82,6 +84,12 @@ final GoRouter router = GoRouter(
       path: Routes.stateNotifierProviderList,
       builder: (BuildContext context, GoRouterState state) {
         return const StateNotifierProviderList();
+      },
+    ),
+    GoRoute(
+      path: Routes.dashboardConsumerScreen,
+      builder: (BuildContext context, GoRouterState state) {
+        return const DashboardConsumerScreen();
       },
     ),
   ],
