@@ -29,15 +29,16 @@ class MovieSQLHelper {
 // from add button pressed
   static Future<int> createItem(String title, String? posterPath) async {
     final db = await MovieSQLHelper.db();
-
     //put data in map format
-    final data = {'title': title, 'posterPath': posterPath};
+    final data = {
+      'title': title,
+      'posterPath': "https://image.tmdb.org/t/p/w200$posterPath"
+    };
     //db insert in table with map format
     //conflict algorithm removes duplicate entry
     //item is table name, data is new record
     //id -- if record is added successfully then gives row id
-    final id = await db.insert('movie_items', data,
-        conflictAlgorithm: sql.ConflictAlgorithm.replace);
+    final id = await db.insert('movie_items', data);
     return id;
   }
 
@@ -54,32 +55,5 @@ class MovieSQLHelper {
   static Future<List<Map<String, dynamic>>> getItem(int id) async {
     final db = await MovieSQLHelper.db();
     return db.query('movie_items', where: "id = ?", whereArgs: [id], limit: 1);
-  }
-
-  //for updating certain item
-  //whereArgs -> id is id which we passed from update item
-  static Future<int> updateItem(
-      int id, String title, String? posterPath) async {
-    final db = await MovieSQLHelper.db();
-
-    final data = {
-      'title': title,
-      'posterPath': posterPath,
-      'createAt': DateTime.now().toString()
-    };
-
-    final result =
-        await db.update('movie_items', data, where: "id = ?", whereArgs: [id]);
-    return result;
-  }
-
-  //delete perticular item
-  static Future<void> deleteItem(int id) async {
-    final db = await MovieSQLHelper.db();
-    try {
-      await db.delete("movie_items", where: "id = ? ", whereArgs: [id]);
-    } catch (err) {
-      debugPrint("Something went wrong when deleting an item: $err");
-    }
   }
 }

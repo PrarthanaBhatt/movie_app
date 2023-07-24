@@ -78,6 +78,7 @@ class _MovieListState extends ConsumerState<MovieList> {
   void initState() {
     super.initState();
     _refreshMovieList();
+
     // _addItem();
     print("...number of items ${_movieDbList.length}");
   }
@@ -124,16 +125,28 @@ class _MovieListState extends ConsumerState<MovieList> {
             color: Theme.of(context).colorScheme.surfaceVariant,
             child: Row(
               children: [
-                // Flexible(
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(16.0),
-                //     child: Image.network(
-                //       movie['posterPath'],
-                //       fit: BoxFit.cover,
-                //       width: 80,
-                //     ),
-                //   ),
-                // ),
+                (movie['posterPath'] != null)
+                    ? Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Image.network(
+                            movie['posterPath'],
+                            fit: BoxFit.cover,
+                            width: 80,
+                          ),
+                        ),
+                      )
+                    : Container(
+                        height: 70.0,
+                        width: 50.0,
+                        color: Colors.transparent,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              color: Colors.black54,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0))),
+                        ),
+                      ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.10,
                   width: MediaQuery.of(context).size.width * 0.55,

@@ -10,6 +10,7 @@ import 'package:movie_app/src/ui/dashboard_provider/dashboard_consumer_screen.da
 import 'package:movie_app/src/ui/dashboard_provider/dashboard_provider_screen.dart';
 import 'package:movie_app/src/ui/dashboard_provider/state_notifier_provider_list/state_notifier_provider_list.dart';
 import 'package:movie_app/src/ui/dashboard_provider/state_provider_demo.dart';
+import 'package:movie_app/src/ui/image_store_sqlite/network_image_storage_example.dart';
 import 'package:movie_app/src/ui/movie_detail/movie_details.dart';
 
 class Routes {
@@ -25,6 +26,7 @@ class Routes {
   static String dashboardConsumerScreen = "/dashboard-consumer-screen";
   static String crudDemoSqlite = "/crud-demo-sqlite";
   static String movieDBDashboardScreen = "/movie-db-dashboard-screen";
+  static String networkImageStorageExample = "/network-image-storage-example";
 }
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -106,6 +108,12 @@ final GoRouter router = GoRouter(
       path: Routes.movieDBDashboardScreen,
       builder: (BuildContext context, GoRouterState state) {
         return const MovieDBDashboardScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.networkImageStorageExample,
+      builder: (BuildContext context, GoRouterState state) {
+        return NetworkImageStorageExample();
       },
     ),
   ],
