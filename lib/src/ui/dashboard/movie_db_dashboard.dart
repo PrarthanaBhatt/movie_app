@@ -136,15 +136,12 @@ class _MovieListState extends ConsumerState<MovieList> {
                           ),
                         ),
                       )
-                    : Container(
-                        height: 70.0,
-                        width: 50.0,
-                        color: Colors.transparent,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                              color: Colors.black54,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0))),
+                    : Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Image.asset(
+                          'assets/png/no_img_found.png',
+                          fit: BoxFit.cover,
+                          width: 80,
                         ),
                       ),
                 SizedBox(
