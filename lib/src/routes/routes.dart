@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:movie_app/src/ui/add_movie/add_movie.dart';
 import 'package:movie_app/src/ui/auth/login/login_screen.dart';
 import 'package:movie_app/src/ui/auth/registration/registration_screen.dart';
+import 'package:movie_app/src/ui/crud_demo_sqlite/crud_demo_sqlite.dart';
 import 'package:movie_app/src/ui/dashboard/movie_dashboard.dart';
+import 'package:movie_app/src/ui/dashboard/movie_db_dashboard.dart';
 import 'package:movie_app/src/ui/dashboard_provider/dashboard_consumer_screen.dart';
 import 'package:movie_app/src/ui/dashboard_provider/dashboard_provider_screen.dart';
 import 'package:movie_app/src/ui/dashboard_provider/state_notifier_provider_list/state_notifier_provider_list.dart';
@@ -21,6 +23,8 @@ class Routes {
   static String stateProviderDemoScreen = "/state-provider-demo-screen";
   static String stateNotifierProviderList = "/state-notifier-provider-list";
   static String dashboardConsumerScreen = "/dashboard-consumer-screen";
+  static String crudDemoSqlite = "/crud-demo-sqlite";
+  static String movieDBDashboardScreen = "/movie-db-dashboard-screen";
 }
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -28,7 +32,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
 
 final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: Routes.dashboardConsumerScreen,
+  initialLocation: Routes.movieDBDashboardScreen,
   routes: <RouteBase>[
     GoRoute(
       path: Routes.registrationScreen,
@@ -90,6 +94,18 @@ final GoRouter router = GoRouter(
       path: Routes.dashboardConsumerScreen,
       builder: (BuildContext context, GoRouterState state) {
         return const DashboardConsumerScreen();
+      },
+    ),
+    GoRoute(
+      path: Routes.crudDemoSqlite,
+      builder: (BuildContext context, GoRouterState state) {
+        return const CrudDemoSqlite();
+      },
+    ),
+    GoRoute(
+      path: Routes.movieDBDashboardScreen,
+      builder: (BuildContext context, GoRouterState state) {
+        return const MovieDBDashboardScreen();
       },
     ),
   ],
