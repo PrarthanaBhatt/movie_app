@@ -10,6 +10,7 @@ import 'package:movie_app/src/constants/enum/gender.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
 import 'package:movie_app/src/routes/routes.dart';
 import 'package:movie_app/src/ui/auth/registration/registration_screen_vm.dart';
+import 'package:movie_app/src/utils/helpers/user_sql_helper.dart';
 
 class RegistrationScreen extends ConsumerStatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -27,7 +28,19 @@ class _RegistrationScreen
   TextEditingController regMobileNumberController = TextEditingController();
   TextEditingController regPasswordController = TextEditingController();
   Gender gender = Gender.male;
-  String result = '';
+  String stateValue = '';
+
+  Future<void> _addRegistrationDetail() async {
+    await UserSQLHelper.createItem(
+        regNameController.text,
+        regEmailController.text,
+        regDobController.text,
+        gender.toString(),
+        stateValue.toString(),
+        regMobileNumberController.text,
+        regPasswordController.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -226,9 +239,9 @@ class _RegistrationScreen
                         ),
                       ),
                     ),
-                    Flexible(child: MyWidget(
+                    Flexible(child: StateWidget(
                       getResult: (value) {
-                        result = value;
+                        stateValue = value;
                       },
                     )),
                   ],
@@ -305,7 +318,7 @@ class _RegistrationScreen
                                 regEmailController.text,
                                 regDobController.text,
                                 gender.name,
-                                result,
+                                stateValue,
                                 regMobileNumberController.text,
                                 regPasswordController.text,
                                 _onSuccess,
@@ -353,6 +366,8 @@ class _RegistrationScreen
   }
 
   void _onSuccess() {
+    _addRegistrationDetail();
+
     context.go(Routes.loginScreen);
   }
 
@@ -363,18 +378,18 @@ class _RegistrationScreen
   }
 }
 
-class MyWidget extends StatefulWidget {
+class StateWidget extends StatefulWidget {
   Function(String) getResult;
-  MyWidget({
+  StateWidget({
     Key? key,
     required this.getResult,
   }) : super(key: key);
 
   @override
-  State<MyWidget> createState() => _MyWidgetState();
+  State<StateWidget> createState() => _StateWidgetState();
 }
 
-class _MyWidgetState extends State<MyWidget> {
+class _StateWidgetState extends State<StateWidget> {
   String stateValue = '';
 
   @override

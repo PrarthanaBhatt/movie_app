@@ -34,7 +34,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
 
 final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: Routes.movieDBDashboardScreen,
+  initialLocation: Routes.loginScreen,
   routes: <RouteBase>[
     GoRoute(
       path: Routes.registrationScreen,

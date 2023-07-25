@@ -6,6 +6,7 @@ import 'package:movie_app/src/components/base/base_consumer_state.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
 import 'package:movie_app/src/routes/routes.dart';
 import 'package:movie_app/src/ui/auth/login/login_screen_vm.dart';
+import 'package:movie_app/src/utils/helpers/login_sql_helper.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -18,6 +19,11 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController mobileNumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  // Future<void> _addLoginDetail() async {
+  //   await LoginSQLHelper.createItem(
+  //       mobileNumberController.text, passwordController.text);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -176,6 +182,7 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
   }
 
   void _onSuccess() {
+    // _addLoginDetail();
     context.go(Routes.movieDashboard);
   }
 
