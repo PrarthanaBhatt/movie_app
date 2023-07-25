@@ -176,7 +176,8 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
   }
 
   void _onSuccess() {
-    context.go(Routes.movieDashboard);
+    // context.go(Routes.movieDashboard);
+    context.go(Routes.movieDBDashboardScreen);
   }
 
   void _onFailure(String value) {
