@@ -39,17 +39,21 @@ class _MovieDetailsState extends ConsumerState<MovieDetails> {
             titlePadding:
                 const EdgeInsetsDirectional.only(start: 60, bottom: 15),
             centerTitle: true,
-            background: Image.network(
-              widget.backdropPath,
-              fit: BoxFit.fill,
-              width: double.maxFinite,
-              errorBuilder: (context, error, stackTrace) {
-                return Image.asset(
-                  'assets/png/no_img_found.png',
-                  fit: BoxFit.cover,
-                  width: double.maxFinite,
-                );
-              },
+            background: Hero(
+              tag: 'movieCard',
+              transitionOnUserGestures: true,
+              child: Image.network(
+                widget.backdropPath,
+                fit: BoxFit.fill,
+                width: double.maxFinite,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    'assets/png/no_img_found.png',
+                    fit: BoxFit.cover,
+                    width: double.maxFinite,
+                  );
+                },
+              ),
             ),
           ),
           expandedHeight: 230,

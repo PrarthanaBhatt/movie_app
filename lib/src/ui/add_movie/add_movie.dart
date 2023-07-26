@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:movie_app/src/models/movie.dart';
+import 'package:movie_app/src/utils/helpers/movie_sql_helper.dart';
 
 class AddMovie extends ConsumerStatefulWidget {
   const AddMovie({super.key});
@@ -113,6 +114,7 @@ class _AddMovieState extends ConsumerState<AddMovie> {
                                 originalLanguage: "",
                                 originalTitle: movieNameController.text,
                                 imagePath: image);
+
                             Navigator.pop(context, holder);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(

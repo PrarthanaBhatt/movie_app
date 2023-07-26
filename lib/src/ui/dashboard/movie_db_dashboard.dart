@@ -54,18 +54,24 @@ class _DashboardConsumerState
             padding: const EdgeInsets.all(20.0),
             child: GestureDetector(
                 onTap: () async {
-                  List<Map<String, dynamic>> result = await Navigator.push(
+                  var result = await Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const AddMovie()),
                   );
 
                   if (result != null) {
-                    ref.read(movieProvider.notifier).add(result as Movie);
-                    // for (var item in result) {
-                    //   MovieSQLHelper.createItem(
-                    //       item['title'], item['poster_path']);
-                    //   print("Result ===> $MovieSQLHelper.getItems()");
-                    // }
+                    // ref.read(movieProvider.notifier).add(result as Movie);
+                    for (var item in result) {
+                      MovieSQLHelper.createItem(
+                          item['title'],
+                          item['poster_path'],
+                          item['overview'],
+                          item['backdrop_path'],
+                          item['release_date'],
+                          item['original_language'],
+                          item['original_title']);
+                      print("Result ===> $MovieSQLHelper.getItems()");
+                    }
                   }
                 },
                 child: const Icon(Icons.add)),
@@ -161,28 +167,32 @@ class _MovieListState extends ConsumerState<MovieList> {
             color: Theme.of(context).colorScheme.surfaceVariant,
             child: Row(
               children: [
-                Flexible(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      movie['posterPath'],
-                      fit: BoxFit.cover,
-                      width: 130,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.asset(
-                                'assets/png/no_img_found.png',
-                                fit: BoxFit.cover,
-                                width: 130,
+                Hero(
+                  tag: 'movieCard',
+                  transitionOnUserGestures: true,
+                  child: Flexible(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        movie['posterPath'],
+                        fit: BoxFit.cover,
+                        width: 130,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.asset(
+                                  'assets/png/no_img_found.png',
+                                  fit: BoxFit.cover,
+                                  width: 130,
+                                ),
                               ),
-                            ),
-                          ],
-                        );
-                      },
+                            ],
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

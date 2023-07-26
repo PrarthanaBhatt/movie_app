@@ -58,8 +58,11 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Image.asset(
                   "assets/png/icon.png",
-                  height: 300.0,
-                  width: 300.0,
+                  height: 400.0,
+                  width: 400.0,
+                ),
+                const SizedBox(
+                  height: 80,
                 ),
                 const Text(
                   "Movie App",
@@ -70,10 +73,16 @@ class _SplashScreenState extends State<SplashScreen> {
                     fontSize: 18.0,
                   ),
                 ),
+                const Text(
+                  "testt",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12.0,
+                  ),
+                ),
               ],
-            ),
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.black45),
             ),
           ],
         ),
