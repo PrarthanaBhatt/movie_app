@@ -40,7 +40,7 @@ class _MovieDetailsState extends ConsumerState<MovieDetails> {
                 const EdgeInsetsDirectional.only(start: 60, bottom: 15),
             centerTitle: true,
             background: Hero(
-              tag: 'movieCard',
+              tag: 'movieCard1',
               transitionOnUserGestures: true,
               child: Image.network(
                 widget.backdropPath,
