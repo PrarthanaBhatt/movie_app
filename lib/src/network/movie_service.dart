@@ -31,7 +31,7 @@ class MovieService {
       final List<Map<String, dynamic>> results =
           List<Map<String, dynamic>>.from(response.data['results']);
 
-      // MovieSQLHelper.deleteItems();
+      MovieSQLHelper.deleteItems();
 
       for (var item in results) {
         MovieSQLHelper.createItem(
