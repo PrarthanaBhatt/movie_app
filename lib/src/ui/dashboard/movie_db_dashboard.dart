@@ -60,12 +60,12 @@ class _DashboardConsumerState
                   );
 
                   if (result != null) {
-                    // ref.read(movieProvider.notifier).add(result);
-                    for (var item in result) {
-                      MovieSQLHelper.createItem(
-                          item['title'], item['poster_path']);
-                      print("Result ===> $MovieSQLHelper.getItems()");
-                    }
+                    ref.read(movieProvider.notifier).add(result as Movie);
+                    // for (var item in result) {
+                    //   MovieSQLHelper.createItem(
+                    //       item['title'], item['poster_path']);
+                    //   print("Result ===> $MovieSQLHelper.getItems()");
+                    // }
                   }
                 },
                 child: const Icon(Icons.add)),
@@ -143,16 +143,16 @@ class _MovieListState extends ConsumerState<MovieList> {
 
         return GestureDetector(
           onTap: () {
-            // context.pushNamed(
-            //   Routes.movieDetails,
-            //   pathParameters: {
-            //     "overview": movie.overview,
-            //     "backdropPath": movie.fullBannerImageUrl,
-            //     "releaseDate": movie.releaseDate,
-            //     "originalLanguage": movie.originalLanguage,
-            //     "originalTitle": movie.originalTitle
-            //   },
-            // );
+            context.pushNamed(
+              Routes.movieDetails,
+              pathParameters: {
+                "overview": movie['overview'],
+                "backdropPath": movie['backdropPath'],
+                "releaseDate": movie['releaseDate'],
+                "originalLanguage": movie['originalLanguage'],
+                "originalTitle": movie['originalTitle'],
+              },
+            );
           },
           child: Card(
             shape: RoundedRectangleBorder(
@@ -167,7 +167,7 @@ class _MovieListState extends ConsumerState<MovieList> {
                     child: Image.network(
                       movie['posterPath'],
                       fit: BoxFit.cover,
-                      width: 120,
+                      width: 130,
                       errorBuilder: (context, error, stackTrace) {
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -177,7 +177,7 @@ class _MovieListState extends ConsumerState<MovieList> {
                               child: Image.asset(
                                 'assets/png/no_img_found.png',
                                 fit: BoxFit.cover,
-                                width: 120,
+                                width: 130,
                               ),
                             ),
                           ],
@@ -195,19 +195,22 @@ class _MovieListState extends ConsumerState<MovieList> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.only(top: 8.0, left: 8.0),
                             child: Text(
                               movie['title'],
                             ),
                           ),
                         ),
                       ),
-                      const Flexible(
+                      Flexible(
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.only(left: 8.0),
                           child: Text(
-                            "asdsdsdsdsndsad sdjsdnsadk nksndskdsa sdjadsksd",
-                            style: TextStyle(fontSize: 12),
+                            movie['overview'],
+                            style: const TextStyle(fontSize: 12),
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
                           ),
                         ),
                       ),

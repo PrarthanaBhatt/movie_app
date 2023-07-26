@@ -65,7 +65,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       name: Routes.movieDetails,
       path:
-          "/movie-details/:overview/:releaseDate/:backdropPath/:originalLanguage/:originalTitle",
+          "/movie-details/:overview/:backdropPath/:releaseDate/:originalLanguage/:originalTitle",
       builder: (BuildContext context, GoRouterState state) {
         return MovieDetails(
           overview: state.pathParameters['overview'] ?? "",

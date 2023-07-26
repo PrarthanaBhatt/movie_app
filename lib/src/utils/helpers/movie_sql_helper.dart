@@ -9,6 +9,11 @@ class MovieSQLHelper {
       id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
       title TEXT,
       posterPath TEXT,
+      overview TEXT,
+      backdropPath TEXT,
+      releaseDate TEXT,
+      originalLanguage TEXT,
+      originalTitle TEXT,
       createAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     )""");
   }
@@ -27,12 +32,24 @@ class MovieSQLHelper {
   }
 
 // from add button pressed
-  static Future<int> createItem(String title, String? posterPath) async {
+  static Future<int> createItem(
+      String title,
+      String? posterPath,
+      String overview,
+      String? backdropPath,
+      String releaseDate,
+      String originalLanguage,
+      String originalTitle) async {
     final db = await MovieSQLHelper.db();
     //put data in map format
     final data = {
       'title': title,
-      'posterPath': "https://image.tmdb.org/t/p/w200$posterPath"
+      'posterPath': "https://image.tmdb.org/t/p/w200$posterPath",
+      'overview': overview,
+      'backdropPath': "https://image.tmdb.org/t/p/w200$backdropPath",
+      'releaseDate': releaseDate,
+      'originalLanguage': originalLanguage,
+      'originalTitle': originalTitle
     };
     //db insert in table with map format
     //conflict algorithm removes duplicate entry

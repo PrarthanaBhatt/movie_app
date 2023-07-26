@@ -34,7 +34,14 @@ class MovieService {
       // MovieSQLHelper.deleteItems();
 
       for (var item in results) {
-        MovieSQLHelper.createItem(item['title'], item['poster_path']);
+        MovieSQLHelper.createItem(
+            item['title'],
+            item['poster_path'],
+            item['overview'],
+            item['backdrop_path'],
+            item['release_date'],
+            item['original_language'],
+            item['original_title']);
         print("Result ===> $results");
       }
 

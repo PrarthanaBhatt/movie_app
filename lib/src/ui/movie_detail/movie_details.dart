@@ -43,6 +43,13 @@ class _MovieDetailsState extends ConsumerState<MovieDetails> {
               widget.backdropPath,
               fit: BoxFit.fill,
               width: double.maxFinite,
+              errorBuilder: (context, error, stackTrace) {
+                return Image.asset(
+                  'assets/png/no_img_found.png',
+                  fit: BoxFit.cover,
+                  width: double.maxFinite,
+                );
+              },
             ),
           ),
           expandedHeight: 230,
