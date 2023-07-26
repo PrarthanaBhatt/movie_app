@@ -9,7 +9,10 @@ import 'package:movie_app/src/routes/routes.dart';
 import 'package:movie_app/src/ui/add_movie/add_movie.dart';
 import 'package:movie_app/src/ui/dashboard/movie_dashboard_vm.dart';
 import 'package:movie_app/src/ui/dashboard_provider/dashboard_provider_notifier.dart';
+import 'package:movie_app/src/utils/constant.dart';
 import 'package:movie_app/src/utils/helpers/movie_sql_helper.dart';
+
+import '../../constants/sharedpref_value.dart';
 
 class MovieDBDashboardScreen extends ConsumerStatefulWidget {
   const MovieDBDashboardScreen({super.key});
@@ -45,6 +48,18 @@ class _DashboardConsumerState
                 },
                 child: const Icon(Icons.add)),
           ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: GestureDetector(
+                onTap: () async {
+                  // SharedPreferences prefs =
+                  //     await SharedPreferences.getInstance();
+                  // await prefs.setBool('isLoggedIn', false);
+                  SharedPrefValue.setPrefValue(isLoggedIn, false);
+                  context.go(Routes.loginScreen);
+                },
+                child: const Icon(Icons.logout_outlined)),
+          ),
         ],
       ),
       body: const MovieList(),
@@ -78,17 +93,6 @@ class _MovieListState extends ConsumerState<MovieList> {
   void initState() {
     super.initState();
     _refreshMovieList();
-
-    // _addItem();
-    print("...number of items ${_movieDbList.length}");
-  }
-
-  Future<void> _addItem() async {
-    final List<Movie> movieService = ref.watch(movieProvider);
-
-    // await MovieSQLHelper.createItem(
-    //     movieService.title, movieService.posterPath);
-    _refreshMovieList();
     print("...number of items ${_movieDbList.length}");
   }
 
@@ -119,7 +123,6 @@ class _MovieListState extends ConsumerState<MovieList> {
             //   },
             // );
           },
-          // child: Text(_movieDbList[index]['title'].toString()),
           child: Card(
             elevation: 0,
             color: Theme.of(context).colorScheme.surfaceVariant,

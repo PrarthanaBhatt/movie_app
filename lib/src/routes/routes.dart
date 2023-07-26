@@ -12,10 +12,11 @@ import 'package:movie_app/src/ui/dashboard_provider/state_notifier_provider_list
 import 'package:movie_app/src/ui/dashboard_provider/state_provider_demo.dart';
 import 'package:movie_app/src/ui/image_store_sqlite/network_image_storage_example.dart';
 import 'package:movie_app/src/ui/movie_detail/movie_details.dart';
+import 'package:movie_app/src/ui/splash_screen/splash_screen.dart';
 
 class Routes {
   const Routes._();
-  static String loginScreen = "/";
+  static String splashScreen = "/";
   static String movieDashboard = "/movie-dashboard";
   static String registrationScreen = "/registration";
   static String movieDetails = "/movie-details";
@@ -27,6 +28,7 @@ class Routes {
   static String crudDemoSqlite = "/crud-demo-sqlite";
   static String movieDBDashboardScreen = "/movie-db-dashboard-screen";
   static String networkImageStorageExample = "/network-image-storage-example";
+  static String loginScreen = "/loginScreen";
 }
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -34,8 +36,14 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
 
 final GoRouter router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: Routes.loginScreen,
+  initialLocation: Routes.splashScreen,
   routes: <RouteBase>[
+    GoRoute(
+      path: Routes.splashScreen,
+      builder: (BuildContext context, GoRouterState state) {
+        return const SplashScreen();
+      },
+    ),
     GoRoute(
       path: Routes.registrationScreen,
       builder: (BuildContext context, GoRouterState state) {

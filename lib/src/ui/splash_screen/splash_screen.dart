@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie_app/src/constants/sharedpref_value.dart';
+import 'package:movie_app/src/routes/routes.dart';
+import 'package:movie_app/src/utils/constant.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,11 +16,23 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    super.initState();
     Timer(
       const Duration(seconds: 3),
-      () => context.go("/"),
+      () =>
+          // context.go("/"),
+          checkNextRoute(),
     );
+    super.initState();
+  }
+
+  Future<void> checkNextRoute() async {
+    final getLoggedIn = await SharedPrefValue.getPrefValue(isLoggedIn, bool);
+
+    if (getLoggedIn != null && getLoggedIn) {
+      context.go(Routes.movieDBDashboardScreen);
+    } else {
+      context.go(Routes.loginScreen);
+    }
   }
 
   @override

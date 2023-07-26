@@ -6,6 +6,7 @@ import 'package:movie_app/src/components/base/base_consumer_state.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
 import 'package:movie_app/src/routes/routes.dart';
 import 'package:movie_app/src/ui/auth/login/login_screen_vm.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -177,6 +178,7 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
 
   void _onSuccess() {
     // context.go(Routes.movieDashboard);
+
     context.go(Routes.movieDBDashboardScreen);
   }
 
