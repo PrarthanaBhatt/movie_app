@@ -56,4 +56,13 @@ class MovieSQLHelper {
     final db = await MovieSQLHelper.db();
     return db.query('movie_items', where: "id = ?", whereArgs: [id], limit: 1);
   }
+
+  static Future<void> deleteItems() async {
+    final db = await MovieSQLHelper.db();
+    try {
+      await db.delete("movie_items");
+    } catch (err) {
+      debugPrint("Something went wrong when deleting an item: $err");
+    }
+  }
 }

@@ -31,6 +31,8 @@ class MovieService {
       final List<Map<String, dynamic>> results =
           List<Map<String, dynamic>>.from(response.data['results']);
 
+      // MovieSQLHelper.deleteItems();
+
       for (var item in results) {
         MovieSQLHelper.createItem(item['title'], item['poster_path']);
         print("Result ===> $results");
