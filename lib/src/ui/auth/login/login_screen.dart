@@ -6,7 +6,6 @@ import 'package:movie_app/src/components/base/base_consumer_state.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
 import 'package:movie_app/src/routes/routes.dart';
 import 'package:movie_app/src/ui/auth/login/login_screen_vm.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -32,7 +31,7 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 120.0),
+                padding: const EdgeInsets.only(top: 200.0),
                 child: Container(
                   height: 150.0,
                   width: 190.0,
@@ -41,7 +40,7 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                     borderRadius: BorderRadius.circular(200),
                   ),
                   child: Center(
-                    child: Image.asset('assets/png/icon.png'),
+                    child: Image.asset('assets/png/play_icon.jpg'),
                   ),
                 ),
               ),
@@ -53,16 +52,43 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   maxLength: 10,
                   controller: mobileNumberController,
-                  decoration: const InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
-                    ),
-                    border: UnderlineInputBorder(),
+                  // decoration: const InputDecoration(
+                  //   enabledBorder: UnderlineInputBorder(
+                  //     borderSide: BorderSide(color: Colors.grey),
+                  //   ),
+                  //   focusedBorder: UnderlineInputBorder(
+                  //     borderSide: BorderSide(color: Colors.blue),
+                  //   ),
+                  //   border: UnderlineInputBorder(),
+                  //   labelText: "Mobile Number",
+                  //   counterText: "",
+                  // ),
+                  decoration: InputDecoration(
                     labelText: "Mobile Number",
+                    hintText: "",
                     counterText: "",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:
+                          const BorderSide(color: Colors.black, width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:
+                          const BorderSide(color: Colors.blue, width: 2.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:
+                          const BorderSide(color: Colors.red, width: 1.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:
+                          const BorderSide(color: Colors.red, width: 2.0),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 12.0, horizontal: 12.0),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -81,16 +107,32 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                   maxLength: 6,
                   controller: passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
-                    ),
-                    border: UnderlineInputBorder(),
+                  decoration: InputDecoration(
                     labelText: "Password",
+                    hintText: "",
                     counterText: "",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:
+                          const BorderSide(color: Colors.grey, width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:
+                          const BorderSide(color: Colors.blue, width: 2.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:
+                          const BorderSide(color: Colors.red, width: 1.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                      borderSide:
+                          const BorderSide(color: Colors.red, width: 2.0),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 12.0, horizontal: 12.0),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -110,6 +152,14 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                     width: double.maxFinite,
                     height: 45,
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 24.0),
+                        backgroundColor: const Color(0xFF073376),
+                      ),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           viewModel.validateLogin(mobileNumberController.text,
@@ -123,7 +173,11 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                       },
                       child: const Text(
                         'Submit',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(
+                          fontFamily: 'OpenSans',
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                     ),
                   ),
@@ -132,14 +186,25 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  const Text('Does not have account?'),
+                  const Text(
+                    'Does not have account ?',
+                    style: TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
                   TextButton(
                     child: const Text(
                       'Sign Up',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF073376),
+                      ),
                     ),
                     onPressed: () {
-                      //signup screen
                       context.push(Routes.registrationScreen);
                     },
                   )
@@ -151,6 +216,12 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                 },
                 child: const Text(
                   'Forgot Password',
+                  style: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                    color: Color(0xFF073376),
+                  ),
                 ),
               ),
             ],

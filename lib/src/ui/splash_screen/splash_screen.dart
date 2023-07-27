@@ -29,7 +29,9 @@ class _SplashScreenState extends State<SplashScreen> {
     final getLoggedIn = await SharedPrefValue.getPrefValue(isLoggedIn, bool);
 
     if (getLoggedIn != null && getLoggedIn) {
-      context.go(Routes.movieDBDashboardScreen);
+      context.go(Routes.loginScreen);
+
+      // context.go(Routes.movieDBDashboardScreen);
 
       //INFO: When to load the API response from provider use below
       // context.go(Routes.dashboardProvider);
@@ -41,18 +43,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Color(0xFFF3E6E8),
-                Color(0xFFD5D0E5),
-              ]),
-        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -60,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Column(
               children: [
                 Image.asset(
-                  "assets/png/icon.png",
+                  "assets/png/play_icon.jpg",
                   height: 400.0,
                   width: 400.0,
                 ),
@@ -68,21 +61,21 @@ class _SplashScreenState extends State<SplashScreen> {
                   height: 80,
                 ),
                 const Text(
-                  "Movie App",
+                  "CineWorld",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.black87,
+                    fontFamily: 'PlayfairDisplay',
+                    fontSize: 34,
                     fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
                   ),
                 ),
                 const Text(
-                  "testt",
+                  "Your Personal Movie Guide",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.black87,
+                    fontFamily: 'PlayfairDisplay',
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    fontSize: 12.0,
                   ),
                 ),
               ],
