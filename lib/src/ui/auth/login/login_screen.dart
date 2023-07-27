@@ -133,44 +133,84 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                   },
                 ),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 12.0),
-                child: Center(
-                  child: SizedBox(
-                    width: double.maxFinite,
-                    height: 45,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 24.0),
-                        backgroundColor: const Color(0xFF073376),
-                      ),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          viewModel.validateLogin(mobileNumberController.text,
-                              passwordController.text, _onSuccess, _onFailure);
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Invalid Crediential!')),
-                          );
-                        }
-                      },
-                      child: const Text(
-                        'Submit',
-                        style: TextStyle(
-                          fontFamily: 'OpenSans',
-                          fontSize: 18,
-                          fontWeight: FontWeight.normal,
+              Stack(
+                // alignment: Alignment.bottomRight,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional.topEnd, // <-- SEE HERE
+                    child: Container(
+                      width: 150,
+                      height: 90,
+                      // color: Colors.redAccent,
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.10,
+                        width: MediaQuery.of(context).size.width * 0.90,
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Transform.rotate(
+                          angle: 90,
+                          child: Image.asset(
+                            'assets/png/film_strip.png',
+                            fit: BoxFit.cover,
+                            width: 130,
+                            color: Color(0xFF073376),
+                            // color: Colors.amber.shade200,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 12.0),
+                    child: Center(
+                      child: SizedBox(
+                        width: double.maxFinite,
+                        height: 45,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 24.0),
+                            backgroundColor: const Color(0xFF073376),
+                          ),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              viewModel.validateLogin(
+                                  mobileNumberController.text,
+                                  passwordController.text,
+                                  _onSuccess,
+                                  _onFailure);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text('Invalid Crediential!')),
+                              );
+                            }
+                          },
+                          child: const Text(
+                            'Submit',
+                            style: TextStyle(
+                              fontFamily: 'OpenSans',
+                              fontSize: 18,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Container(
+                  //   height: MediaQuery.of(context).size.height * 0.18,
+                  //   width: MediaQuery.of(context).size.width * 0.90,
+                  //   padding: const EdgeInsets.only(top: 10),
+                  //   child: Image.asset('assets/png/film_strip.png'),
+                  // ),
+                ],
+              ),
+              const SizedBox(
+                height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
