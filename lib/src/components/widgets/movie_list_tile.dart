@@ -21,70 +21,93 @@ class MovieListTile extends StatelessWidget {
         children: [
           (movie.imagePath != null)
               ? Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.20,
-                      height: MediaQuery.of(context).size.height * 0.15,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        image: DecorationImage(
-                          image: FileImage(movie.imagePath ?? File('')),
-                          fit: BoxFit.cover,
-                        ),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.36,
+                    height: MediaQuery.of(context).size.height * 0.28,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      shape: BoxShape.rectangle,
+                      image: DecorationImage(
+                        image: FileImage(movie.imagePath ?? File('')),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
                 )
               : Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Image.network(
-                      movie.fullImageUrl,
-                      fit: BoxFit.cover,
-                      width: 80,
+                  child: Hero(
+                    tag: 'movieCard1',
+                    transitionOnUserGestures: true,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        movie.fullImageUrl,
+                        fit: BoxFit.cover,
+                        width: 130,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.asset(
+                                  'assets/png/no_img_found.png',
+                                  fit: BoxFit.cover,
+                                  width: 130,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.10,
+            height: MediaQuery.of(context).size.height * 0.20,
             width: MediaQuery.of(context).size.width * 0.55,
             child: Column(
               children: [
                 Flexible(
                   child: Align(
                     alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0, left: 8.0),
+                      child: Text(
+                        movie.title,
+                      ),
+                    ),
+                  ),
+                ),
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
                     child: Text(
-                      movie.title,
+                      movie.overview,
+                      style: const TextStyle(fontSize: 12),
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(6.0),
+                  padding: const EdgeInsets.only(left: 16.0, top: 20.0),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
-                      Padding(
-                        padding: EdgeInsets.all(4.0),
-                        child: Icon(
-                          Icons.favorite,
-                          color: Colors.black45,
-                        ),
+                      Icon(
+                        Icons.favorite,
+                        color: Colors.black45,
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(4.0),
-                        child: Icon(
-                          Icons.add_circle_outline,
-                          color: Colors.black45,
-                        ),
+                      Icon(
+                        Icons.add_circle_outline,
+                        color: Colors.black45,
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(4.0),
-                        child: Icon(
-                          Icons.remove_circle_outline,
-                          color: Colors.black45,
-                        ),
+                      Icon(
+                        Icons.remove_circle_outline,
+                        color: Colors.black45,
                       ),
                     ],
                   ),

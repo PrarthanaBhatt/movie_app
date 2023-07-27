@@ -3,12 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app/src/components/base/base_consumer_state.dart';
 import 'package:movie_app/src/components/widgets/movie_list_tile.dart';
+import 'package:movie_app/src/constants/sharedpref_value.dart';
 import 'package:movie_app/src/models/movie.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
 import 'package:movie_app/src/routes/routes.dart';
 import 'package:movie_app/src/ui/add_movie/add_movie.dart';
 import 'package:movie_app/src/ui/dashboard/movie_dashboard_vm.dart';
 import 'package:movie_app/src/ui/dashboard_provider/dashboard_provider_notifier.dart';
+import 'package:movie_app/src/utils/constant.dart';
 
 class DashboardProvider extends ConsumerStatefulWidget {
   const DashboardProvider({super.key});
@@ -26,7 +28,8 @@ class _DashboardProviderState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dashboard Provider"),
+        // title: const Text("Dashboard Provider"),
+        title: Text("Movie ${movieService.length}"),
         backgroundColor: Colors.black45,
         actions: [
           Padding(
@@ -44,6 +47,15 @@ class _DashboardProviderState
                 },
                 child: const Icon(Icons.add)),
           ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: GestureDetector(
+                onTap: () async {
+                  SharedPrefValue.setPrefValue(isLoggedIn, false);
+                  context.go(Routes.loginScreen);
+                },
+                child: const Icon(Icons.logout_outlined)),
+          ),
         ],
       ),
       body: ListView.builder(
@@ -55,16 +67,20 @@ class _DashboardProviderState
 
           return GestureDetector(
             onTap: () {
-              context.pushNamed(
-                Routes.movieDetails,
-                pathParameters: {
-                  "overview": movie.overview,
-                  "backdropPath": movie.fullBannerImageUrl,
-                  "releaseDate": movie.releaseDate,
-                  "originalLanguage": movie.originalLanguage,
-                  "originalTitle": movie.originalTitle
-                },
-              );
+              (movie.fullBannerImageUrl != "" && movie.overview != "")
+                  ? context.pushNamed(
+                      Routes.movieDetails,
+                      pathParameters: {
+                        "overview": movie.overview,
+                        "backdropPath": movie.fullBannerImageUrl,
+                        "releaseDate": movie.releaseDate,
+                        "originalLanguage": movie.originalLanguage,
+                        "originalTitle": movie.originalTitle
+                      },
+                    )
+                  : ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('No Data Found')),
+                    );
             },
             child: MovieListTile(movie: movie),
           );

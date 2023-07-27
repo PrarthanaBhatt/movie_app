@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app/src/components/base/base_consumer_state.dart';
+import 'package:movie_app/src/components/widgets/movie_list_tile.dart';
 import 'package:movie_app/src/models/movie.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
 import 'package:movie_app/src/routes/routes.dart';
@@ -25,13 +26,16 @@ class MovieDBDashboardScreen extends ConsumerStatefulWidget {
 class _DashboardConsumerState
     extends BaseConsumerState<MovieDBDashboardScreen, MovieDashboardVm> {
   List<Map<String, dynamic>> _movieDbList = [];
+  bool isConnected = true;
+  List<Movie> movieService = [];
 
   void checkInternet() async {
-    bool isConnected = await checkInternetConnectivity();
+    isConnected = await checkInternetConnectivity();
     if (isConnected) {
+      movieService = ref.watch(movieProvider);
       print('Internet is available.');
-      final List<Movie> movieService = ref.watch(movieProvider);
     } else {
+      _refreshMovieList();
       print('No internet connection.');
     }
   }
@@ -69,6 +73,8 @@ class _DashboardConsumerState
                   );
 
                   if (result != null) {
+                    ref.read(movieProvider.notifier).add(result);
+
                     _refreshMovieList();
                   }
                 },
@@ -85,108 +91,138 @@ class _DashboardConsumerState
           ),
         ],
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-        itemCount: _movieDbList.length,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          final Map<String, dynamic> movie = _movieDbList[index];
+      body: isConnected
+          ? ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+              itemCount: movieService.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final Movie movie = movieService[index];
 
-          return GestureDetector(
-            onTap: () {
-              context.pushNamed(
-                Routes.movieDetails,
-                pathParameters: {
-                  "overview": movie['overview'],
-                  "backdropPath": movie['backdropPath'],
-                  "releaseDate": movie['releaseDate'],
-                  "originalLanguage": movie['originalLanguage'],
-                  "originalTitle": movie['originalTitle'],
-                },
-              );
-            },
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0)),
-              elevation: 0,
-              color: Theme.of(context).colorScheme.surfaceVariant,
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Hero(
-                      tag: 'movieCard1',
-                      transitionOnUserGestures: true,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          movie['posterPath'],
-                          fit: BoxFit.cover,
-                          width: 130,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset(
-                                    'assets/png/no_img_found.png',
-                                    fit: BoxFit.cover,
-                                    width: 130,
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.20,
-                    width: MediaQuery.of(context).size.width * 0.55,
-                    child: Column(
+                return GestureDetector(
+                  onTap: () {
+                    context.pushNamed(
+                      Routes.movieDetails,
+                      pathParameters: {
+                        "overview": movie.overview,
+                        "backdropPath": movie.fullBannerImageUrl,
+                        "releaseDate": movie.releaseDate,
+                        "originalLanguage": movie.originalLanguage,
+                        "originalTitle": movie.originalTitle
+                      },
+                    );
+                  },
+                  child: MovieListTile(movie: movie),
+                );
+              },
+            )
+          : ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+              itemCount: _movieDbList.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final Map<String, dynamic> movie = _movieDbList[index];
+
+                return GestureDetector(
+                  onTap: () {
+                    context.pushNamed(
+                      Routes.movieDetails,
+                      pathParameters: {
+                        "overview": movie['overview'],
+                        "backdropPath": movie['backdropPath'],
+                        "releaseDate": movie['releaseDate'],
+                        "originalLanguage": movie['originalLanguage'],
+                        "originalTitle": movie['originalTitle'],
+                      },
+                    );
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0)),
+                    elevation: 0,
+                    color: Theme.of(context).colorScheme.surfaceVariant,
+                    child: Row(
                       children: [
                         Flexible(
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, left: 8.0),
-                              child: Text(
-                                movie['title'],
+                          child: Hero(
+                            tag: 'movieCard1',
+                            transitionOnUserGestures: true,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.network(
+                                movie['posterPath'],
+                                fit: BoxFit.cover,
+                                width: 130,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.asset(
+                                          'assets/png/no_img_found.png',
+                                          fit: BoxFit.cover,
+                                          width: 130,
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
                               ),
                             ),
                           ),
                         ),
-                        Flexible(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Text(
-                              movie['overview'],
-                              style: const TextStyle(fontSize: 12),
-                              softWrap: true,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 3,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 16.0, top: 20.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Icon(
-                                Icons.favorite,
-                                color: Colors.black45,
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.20,
+                          width: MediaQuery.of(context).size.width * 0.55,
+                          child: Column(
+                            children: [
+                              Flexible(
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, left: 8.0),
+                                    child: Text(
+                                      movie['title'],
+                                    ),
+                                  ),
+                                ),
                               ),
-                              Icon(
-                                Icons.add_circle_outline,
-                                color: Colors.black45,
+                              Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(
+                                    movie['overview'],
+                                    style: const TextStyle(fontSize: 12),
+                                    softWrap: true,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 3,
+                                  ),
+                                ),
                               ),
-                              Icon(
-                                Icons.remove_circle_outline,
-                                color: Colors.black45,
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 16.0, top: 20.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: const [
+                                    Icon(
+                                      Icons.favorite,
+                                      color: Colors.black45,
+                                    ),
+                                    Icon(
+                                      Icons.add_circle_outline,
+                                      color: Colors.black45,
+                                    ),
+                                    Icon(
+                                      Icons.remove_circle_outline,
+                                      color: Colors.black45,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
@@ -194,12 +230,9 @@ class _DashboardConsumerState
                       ],
                     ),
                   ),
-                ],
-              ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 

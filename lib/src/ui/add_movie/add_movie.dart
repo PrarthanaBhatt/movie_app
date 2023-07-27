@@ -115,18 +115,18 @@ class _AddMovieState extends ConsumerState<AddMovie> {
                                 originalTitle: movieNameController.text,
                                 imagePath: image);
 
-                            // Navigator.pop(context, holder);
-                            const String holderValue = "Item added";
-                            MovieSQLHelper.createItem(
-                                movieNameController.text,
-                                "",
-                                "Random Test image description ",
-                                "",
-                                "",
-                                "en",
-                                "");
-                            MovieSQLHelper.getItems();
-                            Navigator.pop(context, holderValue);
+                            Navigator.pop(context, holder);
+                            // const String holderValue = "Item added";
+                            // MovieSQLHelper.createItem(
+                            //     movieNameController.text,
+                            //     "",
+                            //     "Random Test image description ",
+                            //     "",
+                            //     "",
+                            //     "en",
+                            //     "");
+                            // MovieSQLHelper.getItems();
+                            // Navigator.pop(context, holderValue);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(

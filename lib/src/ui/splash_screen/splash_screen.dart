@@ -29,7 +29,8 @@ class _SplashScreenState extends State<SplashScreen> {
     final getLoggedIn = await SharedPrefValue.getPrefValue(isLoggedIn, bool);
 
     if (getLoggedIn != null && getLoggedIn) {
-      context.go(Routes.movieDBDashboardScreen);
+      // context.go(Routes.movieDBDashboardScreen);
+      context.go(Routes.dashboardProvider);
     } else {
       context.go(Routes.loginScreen);
     }

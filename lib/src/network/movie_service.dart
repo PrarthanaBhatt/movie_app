@@ -48,12 +48,12 @@ class MovieService {
       List<Movie> movies =
           results.map((movieData) => Movie.fromMap(movieData)).toList();
 
-      final Future<List<Movie>> data =
-          MovieSQLHelper.getItems() as Future<List<Movie>>;
+      // final Future<List<Movie>> data =
+      //     MovieSQLHelper.getItems() as Future<List<Movie>>;
 
-      // return movies;
+      return movies;
 
-      return data;
+      // return data;
     } on DioException catch (dioError) {
       throw MoviesException.fromDioError(dioError);
     }
