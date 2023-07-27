@@ -45,13 +45,15 @@ class MovieService {
         print("Result ===> $results");
       }
 
+      //INFO: When to load the API response from provider use below
       List<Movie> movies =
           results.map((movieData) => Movie.fromMap(movieData)).toList();
+      return movies;
+
+      //INFO: When to load the API response from SQLite
 
       // final Future<List<Movie>> data =
       //     MovieSQLHelper.getItems() as Future<List<Movie>>;
-
-      return movies;
 
       // return data;
     } on DioException catch (dioError) {

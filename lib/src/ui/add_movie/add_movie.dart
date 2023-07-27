@@ -105,28 +105,30 @@ class _AddMovieState extends ConsumerState<AddMovie> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            final holder = Movie(
-                                title: movieNameController.text,
-                                posterPath: "",
-                                overview: "",
-                                backdropPath: "",
-                                releaseDate: "",
-                                originalLanguage: "",
-                                originalTitle: movieNameController.text,
-                                imagePath: image);
+                            //INFO: Below code when adding new data using Movie model and rendering UI using statenotifierprovider
+                            // final holder = Movie(
+                            //     title: movieNameController.text,
+                            //     posterPath: "",
+                            //     overview: "",
+                            //     backdropPath: "",
+                            //     releaseDate: "",
+                            //     originalLanguage: "",
+                            //     originalTitle: movieNameController.text,
+                            //     imagePath: image);
 
-                            Navigator.pop(context, holder);
-                            // const String holderValue = "Item added";
-                            // MovieSQLHelper.createItem(
-                            //     movieNameController.text,
-                            //     "",
-                            //     "Random Test image description ",
-                            //     "",
-                            //     "",
-                            //     "en",
-                            //     "");
-                            // MovieSQLHelper.getItems();
-                            // Navigator.pop(context, holderValue);
+                            // Navigator.pop(context, holder);
+
+                            //INFO: Below code when need to add new record to the database and rendering list from DB
+                            const String holderValue = "Item added";
+                            MovieSQLHelper.createItem(
+                                movieNameController.text,
+                                "",
+                                "Random Test image description ",
+                                "",
+                                "",
+                                "en",
+                                "");
+                            Navigator.pop(context, holderValue);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
