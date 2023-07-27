@@ -5,7 +5,7 @@ import 'package:movie_app/src/ui/auth/login/login_screen.dart';
 import 'package:movie_app/src/ui/auth/registration/registration_screen.dart';
 import 'package:movie_app/src/ui/crud_demo_sqlite/crud_demo_sqlite.dart';
 import 'package:movie_app/src/ui/dashboard/movie_dashboard.dart';
-import 'package:movie_app/src/ui/dashboard/movie_db_dashboard.dart';
+import 'package:movie_app/src/ui/dashboard_db_movie/movie_db_dashboard.dart';
 import 'package:movie_app/src/ui/dashboard_provider/dashboard_consumer_screen.dart';
 import 'package:movie_app/src/ui/dashboard_provider/dashboard_provider_screen.dart';
 import 'package:movie_app/src/ui/dashboard_provider/state_notifier_provider_list/state_notifier_provider_list.dart';
