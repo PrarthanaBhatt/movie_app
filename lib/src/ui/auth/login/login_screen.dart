@@ -52,17 +52,6 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   maxLength: 10,
                   controller: mobileNumberController,
-                  // decoration: const InputDecoration(
-                  //   enabledBorder: UnderlineInputBorder(
-                  //     borderSide: BorderSide(color: Colors.grey),
-                  //   ),
-                  //   focusedBorder: UnderlineInputBorder(
-                  //     borderSide: BorderSide(color: Colors.blue),
-                  //   ),
-                  //   border: UnderlineInputBorder(),
-                  //   labelText: "Mobile Number",
-                  //   counterText: "",
-                  // ),
                   decoration: InputDecoration(
                     labelText: "Mobile Number",
                     hintText: "",

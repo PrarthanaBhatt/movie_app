@@ -63,13 +63,17 @@ class _RegistrationScreen
                       borderRadius: BorderRadius.circular(200),
                     ),
                     child: Center(
-                      child: Image.asset('assets/png/icon.png'),
+                      child: Image.asset('assets/png/play_icon.jpg'),
                     ),
                   ),
                 ),
                 const Text(
                   'Registration',
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Padding(
                   padding:
@@ -82,15 +86,32 @@ class _RegistrationScreen
                       FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                       FilteringTextInputFormatter.deny(RegExp(r"^\s*")),
                     ],
-                    decoration: const InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                      ),
-                      border: UnderlineInputBorder(),
+                    decoration: InputDecoration(
                       labelText: "Name",
+                      hintText: "",
+                      counterText: "",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.black, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.blue, width: 2.0),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 1.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2.0),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 12.0, horizontal: 12.0),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -105,15 +126,32 @@ class _RegistrationScreen
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                   child: TextFormField(
                     controller: regEmailController,
-                    decoration: const InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                      ),
-                      border: UnderlineInputBorder(),
+                    decoration: InputDecoration(
                       labelText: "Email",
+                      hintText: "",
+                      counterText: "",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.black, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.blue, width: 2.0),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 1.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2.0),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 12.0, horizontal: 12.0),
                     ),
                     validator: (value) {
                       if (value == null ||
@@ -131,16 +169,33 @@ class _RegistrationScreen
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                   child: TextFormField(
                     controller: regDobController,
-                    decoration: const InputDecoration(
-                      suffixIcon: Icon(Icons.calendar_today),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                      ),
-                      border: UnderlineInputBorder(),
+                    decoration: InputDecoration(
                       labelText: "DOB",
+                      hintText: "",
+                      counterText: "",
+                      suffixIcon: const Icon(Icons.calendar_today),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.black, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.blue, width: 2.0),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 1.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2.0),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 12.0, horizontal: 12.0),
                     ),
                     readOnly: true,
                     onTap: () async {
@@ -168,83 +223,120 @@ class _RegistrationScreen
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
                       'Select Gender',
-                      style: TextStyle(fontSize: 16),
+                      style: TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                      ),
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: RadioListTile(
-                        contentPadding: const EdgeInsets.all(0),
-                        title: const Text('Male'),
-                        value: Gender.male,
-                        groupValue: gender,
-                        onChanged: (value) {
-                          setState(() {
-                            gender = value!;
-                          });
-                        },
-                      ),
-                    ),
-                    Flexible(
-                      child: RadioListTile(
-                        contentPadding: const EdgeInsets.all(0),
-                        title: const Text('Female'),
-                        value: Gender.female,
-                        groupValue: gender,
-                        onChanged: (value) {
-                          setState(() {
-                            gender = value!;
-                          });
-                        },
-                      ),
-                    ),
-                    Flexible(
-                      child: RadioListTile(
-                        contentPadding: const EdgeInsets.all(0),
-                        title: const Text('Others'),
-                        value: Gender.others,
-                        groupValue: gender,
-                        onChanged: (value) {
-                          setState(() {
-                            gender = value!;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Flexible(
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 2, vertical: 12),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            'Select State',
-                            style: TextStyle(fontSize: 16),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black45,
+                        ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: RadioListTile(
+                            contentPadding: const EdgeInsets.all(0),
+                            title: const Text(
+                              'Male',
+                              style: TextStyle(
+                                fontFamily: 'OpenSans',
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                            value: Gender.male,
+                            groupValue: gender,
+                            onChanged: (value) {
+                              setState(() {
+                                gender = value!;
+                              });
+                            },
                           ),
                         ),
-                      ),
+                        Flexible(
+                          child: RadioListTile(
+                            contentPadding: const EdgeInsets.all(0),
+                            title: const Text(
+                              'Female',
+                              style: TextStyle(
+                                fontFamily: 'OpenSans',
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                            value: Gender.female,
+                            groupValue: gender,
+                            onChanged: (value) {
+                              setState(() {
+                                gender = value!;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                    Flexible(child: StateWidget(
-                      getResult: (value) {
-                        stateValue = value;
-                      },
-                    )),
-                  ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black45,
+                        ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Flexible(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 12),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                'Select State',
+                                style: TextStyle(
+                                  fontFamily: 'OpenSans',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Flexible(
+                            child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 1),
+                          child: StateWidget(
+                            getResult: (value) {
+                              stateValue = value;
+                            },
+                          ),
+                        )),
+                      ],
+                    ),
+                  ),
                 ),
                 Padding(
                   padding:
@@ -254,16 +346,32 @@ class _RegistrationScreen
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     maxLength: 10,
                     controller: regMobileNumberController,
-                    decoration: const InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                      ),
-                      border: UnderlineInputBorder(),
+                    decoration: InputDecoration(
                       labelText: "Mobile Number",
+                      hintText: "",
                       counterText: "",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.black, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.blue, width: 2.0),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 1.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2.0),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 12.0, horizontal: 12.0),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -282,16 +390,32 @@ class _RegistrationScreen
                     maxLength: 6,
                     controller: regPasswordController,
                     obscureText: true,
-                    decoration: const InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                      ),
-                      border: UnderlineInputBorder(),
+                    decoration: InputDecoration(
                       labelText: "Password",
+                      hintText: "",
                       counterText: "",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.black, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.blue, width: 2.0),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 1.0),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2.0),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 12.0, horizontal: 12.0),
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -311,6 +435,14 @@ class _RegistrationScreen
                       width: double.maxFinite,
                       height: 45,
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 24.0),
+                          backgroundColor: const Color(0xFF073376),
+                        ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             viewModel.validateRegistration(
@@ -326,13 +458,24 @@ class _RegistrationScreen
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content: Text('Registration Failed!')),
+                                  content: Text(
+                                'Registration Failed!',
+                                style: TextStyle(
+                                  fontFamily: 'OpenSans',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              )),
                             );
                           }
                         },
                         child: const Text(
                           'Submit',
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(
+                            fontFamily: 'OpenSans',
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                          ),
                         ),
                       ),
                     ),
@@ -373,7 +516,15 @@ class _RegistrationScreen
 
   void _onFailure(String value) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Registration Failed !')),
+      const SnackBar(
+          content: Text(
+        'Registration Failed !',
+        style: TextStyle(
+          fontFamily: 'OpenSans',
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+        ),
+      )),
     );
   }
 }
@@ -414,7 +565,14 @@ class _StateWidgetState extends State<StateWidget> {
       items: states.map((String items) {
         return DropdownMenuItem(
           value: items,
-          child: Text(items),
+          child: Text(
+            items,
+            style: const TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
         );
       }).toList(),
       onChanged: (String? newValue) {
