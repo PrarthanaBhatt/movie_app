@@ -43,6 +43,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF28282B),
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
@@ -53,30 +54,50 @@ class _SplashScreenState extends State<SplashScreen> {
             Column(
               children: [
                 Image.asset(
-                  "assets/png/play_icon.jpg",
-                  height: 400.0,
-                  width: 400.0,
+                  "assets/png/movie_icon.png",
+                  height: 250.0,
+                  width: 250.0,
                 ),
                 const SizedBox(
                   height: 80,
                 ),
-                const Text(
-                  "CineWorld",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'PlayfairDisplay',
-                    fontSize: 34,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const Text(
-                  "Your Personal Movie Guide",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'PlayfairDisplay',
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Stack(
+                  alignment: AlignmentDirectional.topCenter,
+                  children: [
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width * 0.56,
+                    //   height: MediaQuery.of(context).size.height * 0.12,
+                    //   decoration: BoxDecoration(
+                    //       border: Border.all(
+                    //           color: const Color(0xFFF1F1F1), width: 1),
+                    //       borderRadius:
+                    //           const BorderRadius.all(Radius.circular(20))),
+                    // ),
+                    Column(
+                      children: const [
+                        Text(
+                          "CineWorld",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'PlayfairDisplay',
+                            fontSize: 34,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "Your Personal Movie Guide",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'PlayfairDisplay',
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -85,4 +106,24 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
+}
+
+class OpenPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint1 = Paint()
+      ..color = Color(0xff808080)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 5;
+    //draw arc
+    canvas.drawArc(
+        Offset(50, 50) & Size(50, 50),
+        0, //radians
+        2, //radians
+        false,
+        paint1);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

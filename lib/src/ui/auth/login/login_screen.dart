@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app/src/components/base/base_consumer_state.dart';
+import 'package:movie_app/src/components/widgets/common_text_form_field.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
 import 'package:movie_app/src/routes/routes.dart';
 import 'package:movie_app/src/ui/auth/login/login_screen_vm.dart';
@@ -22,6 +23,7 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF28282B),
       resizeToAvoidBottomInset: false,
       body: Form(
         key: _formKey,
@@ -40,31 +42,58 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                     borderRadius: BorderRadius.circular(200),
                   ),
                   child: Center(
-                    child: Image.asset('assets/png/play_icon.jpg'),
+                    child: Image.asset('assets/png/movie_icon.png'),
                   ),
                 ),
+              ),
+              CommonTextFormField(
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                maxLength: 10,
+                labelText: 'Mobile Number',
+                controller: mobileNumberController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your mobile number';
+                  } else if (value.length != 10) {
+                    return 'Please enter 10 digit mobile number';
+                  }
+                  return null;
+                },
               ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
+                  style: const TextStyle(color: Color(0xFFF1F1F1)),
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   maxLength: 10,
                   controller: mobileNumberController,
                   decoration: InputDecoration(
                     labelText: "Mobile Number",
+                    labelStyle: const TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 18,
+                      color: Color(0xFFF1F1F1),
+                      fontWeight: FontWeight.normal,
+                    ),
                     hintText: "",
                     counterText: "",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                       borderSide:
-                          const BorderSide(color: Colors.black, width: 1.0),
+                          const BorderSide(color: Colors.white, width: 1.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(width: 3, color: Color(0xFFF1F1F1)),
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
-                      borderSide:
-                          const BorderSide(color: Colors.blue, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Color(0xFF3466AA), width: 2.0),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
@@ -93,22 +122,34 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                 child: TextFormField(
+                  style: const TextStyle(color: Color(0xFFF1F1F1)),
                   maxLength: 6,
                   controller: passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: "Password",
+                    labelStyle: const TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 18,
+                      color: Color(0xFFF1F1F1),
+                      fontWeight: FontWeight.normal,
+                    ),
                     hintText: "",
                     counterText: "",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                       borderSide:
-                          const BorderSide(color: Colors.grey, width: 1.0),
+                          const BorderSide(color: Colors.white, width: 1.0),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          const BorderSide(width: 3, color: Color(0xFFF1F1F1)),
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
-                      borderSide:
-                          const BorderSide(color: Colors.blue, width: 2.0),
+                      borderSide: const BorderSide(
+                          color: Color(0xFF3466AA), width: 2.0),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
@@ -133,81 +174,44 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                   },
                 ),
               ),
-              Stack(
-                // alignment: Alignment.bottomRight,
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional.topEnd, // <-- SEE HERE
-                    child: Container(
-                      width: 150,
-                      height: 90,
-                      // color: Colors.redAccent,
-                      child: Container(
-                        height: MediaQuery.of(context).size.height * 0.10,
-                        width: MediaQuery.of(context).size.width * 0.90,
-                        padding: const EdgeInsets.only(top: 20),
-                        child: Transform.rotate(
-                          angle: 90,
-                          child: Image.asset(
-                            'assets/png/film_strip.png',
-                            fit: BoxFit.cover,
-                            width: 130,
-                            color: Color(0xFF073376),
-                            // color: Colors.amber.shade200,
-                          ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 12.0),
+                child: Center(
+                  child: SizedBox(
+                    width: double.maxFinite,
+                    height: 45,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 24.0),
+                        backgroundColor: const Color(0xFF3466AA),
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          viewModel.validateLogin(mobileNumberController.text,
+                              passwordController.text, _onSuccess, _onFailure);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Invalid Crediential!')),
+                          );
+                        }
+                      },
+                      child: const Text(
+                        'Submit',
+                        style: TextStyle(
+                          fontFamily: 'OpenSans',
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal,
                         ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 12.0),
-                    child: Center(
-                      child: SizedBox(
-                        width: double.maxFinite,
-                        height: 45,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 24.0),
-                            backgroundColor: const Color(0xFF073376),
-                          ),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              viewModel.validateLogin(
-                                  mobileNumberController.text,
-                                  passwordController.text,
-                                  _onSuccess,
-                                  _onFailure);
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text('Invalid Crediential!')),
-                              );
-                            }
-                          },
-                          child: const Text(
-                            'Submit',
-                            style: TextStyle(
-                              fontFamily: 'OpenSans',
-                              fontSize: 18,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Container(
-                  //   height: MediaQuery.of(context).size.height * 0.18,
-                  //   width: MediaQuery.of(context).size.width * 0.90,
-                  //   padding: const EdgeInsets.only(top: 10),
-                  //   child: Image.asset('assets/png/film_strip.png'),
-                  // ),
-                ],
+                ),
               ),
               const SizedBox(
                 height: 30,
@@ -218,6 +222,7 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                   const Text(
                     'Does not have account ?',
                     style: TextStyle(
+                      color: Colors.white,
                       fontFamily: 'OpenSans',
                       fontSize: 18,
                       fontWeight: FontWeight.normal,
@@ -230,7 +235,7 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                         fontFamily: 'OpenSans',
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF073376),
+                        color: Color(0xFF3466AA),
                       ),
                     ),
                     onPressed: () {
@@ -249,7 +254,7 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                     fontFamily: 'OpenSans',
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
-                    color: Color(0xFF073376),
+                    color: Color(0xFF3466AA),
                   ),
                 ),
               ),

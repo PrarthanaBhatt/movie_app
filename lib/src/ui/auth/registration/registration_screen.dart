@@ -44,6 +44,7 @@ class _RegistrationScreen
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF28282B),
       resizeToAvoidBottomInset: true,
       body: Form(
         key: _formKey,
@@ -63,7 +64,7 @@ class _RegistrationScreen
                       borderRadius: BorderRadius.circular(200),
                     ),
                     child: Center(
-                      child: Image.asset('assets/png/play_icon.jpg'),
+                      child: Image.asset('assets/png/movie_icon.png'),
                     ),
                   ),
                 ),
@@ -72,6 +73,7 @@ class _RegistrationScreen
                   style: TextStyle(
                     fontFamily: 'OpenSans',
                     fontSize: 20,
+                    color: Color(0xFFF1F1F1),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -79,6 +81,7 @@ class _RegistrationScreen
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                   child: TextFormField(
+                    style: const TextStyle(color: Color(0xFFF1F1F1)),
                     textCapitalization: TextCapitalization.words,
                     keyboardType: TextInputType.text,
                     controller: regNameController,
@@ -88,6 +91,12 @@ class _RegistrationScreen
                     ],
                     decoration: InputDecoration(
                       labelText: "Name",
+                      labelStyle: const TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 18,
+                        color: Color(0xFFF1F1F1),
+                        fontWeight: FontWeight.normal,
+                      ),
                       hintText: "",
                       counterText: "",
                       border: OutlineInputBorder(
@@ -95,10 +104,15 @@ class _RegistrationScreen
                         borderSide:
                             const BorderSide(color: Colors.black, width: 1.0),
                       ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 3, color: Color(0xFFF1F1F1)),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.blue, width: 2.0),
+                        borderSide: const BorderSide(
+                            color: Color(0xFF3466AA), width: 2.0),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -126,14 +140,27 @@ class _RegistrationScreen
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                   child: TextFormField(
                     controller: regEmailController,
+                    style: const TextStyle(color: Color(0xFFF1F1F1)),
                     decoration: InputDecoration(
+                      fillColor: Color(0xFFF1F1F1),
                       labelText: "Email",
+                      labelStyle: const TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 18,
+                        color: Color(0xFFF1F1F1),
+                        fontWeight: FontWeight.normal,
+                      ),
                       hintText: "",
                       counterText: "",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
                         borderSide:
                             const BorderSide(color: Colors.black, width: 1.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 3, color: Color(0xFFF1F1F1)),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -169,20 +196,33 @@ class _RegistrationScreen
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                   child: TextFormField(
                     controller: regDobController,
+                    style: const TextStyle(color: Color(0xFFF1F1F1)),
                     decoration: InputDecoration(
                       labelText: "DOB",
+                      labelStyle: const TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 18,
+                        color: Color(0xFFF1F1F1),
+                        fontWeight: FontWeight.normal,
+                      ),
                       hintText: "",
                       counterText: "",
                       suffixIcon: const Icon(Icons.calendar_today),
+                      suffixIconColor: const Color(0xFFF1F1F1),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
                         borderSide:
                             const BorderSide(color: Colors.black, width: 1.0),
                       ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 3, color: Color(0xFFF1F1F1)),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.blue, width: 2.0),
+                        borderSide: const BorderSide(
+                            color: Color(0xFF3466AA), width: 2.0),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -229,6 +269,7 @@ class _RegistrationScreen
                     child: Text(
                       'Select Gender',
                       style: TextStyle(
+                        color: Color(0xFFF1F1F1),
                         fontFamily: 'OpenSans',
                         fontSize: 16,
                         fontWeight: FontWeight.normal,
@@ -241,8 +282,7 @@ class _RegistrationScreen
                   child: Container(
                     decoration: BoxDecoration(
                         border: Border.all(
-                          color: Colors.black45,
-                        ),
+                            color: const Color(0xFFF1F1F1), width: 3),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20))),
                     child: Row(
@@ -255,6 +295,7 @@ class _RegistrationScreen
                             title: const Text(
                               'Male',
                               style: TextStyle(
+                                color: Color(0xFFF1F1F1),
                                 fontFamily: 'OpenSans',
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
@@ -275,6 +316,7 @@ class _RegistrationScreen
                             title: const Text(
                               'Female',
                               style: TextStyle(
+                                color: Color(0xFFF1F1F1),
                                 fontFamily: 'OpenSans',
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
@@ -299,7 +341,8 @@ class _RegistrationScreen
                   child: Container(
                     decoration: BoxDecoration(
                         border: Border.all(
-                          color: Colors.black45,
+                          color: const Color(0xFFF1F1F1),
+                          width: 3,
                         ),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20))),
@@ -317,6 +360,7 @@ class _RegistrationScreen
                                 'Select State',
                                 style: TextStyle(
                                   fontFamily: 'OpenSans',
+                                  color: Color(0xFFF1F1F1),
                                   fontSize: 16,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -343,11 +387,18 @@ class _RegistrationScreen
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                   child: TextFormField(
                     keyboardType: TextInputType.number,
+                    style: const TextStyle(color: Color(0xFFF1F1F1)),
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     maxLength: 10,
                     controller: regMobileNumberController,
                     decoration: InputDecoration(
                       labelText: "Mobile Number",
+                      labelStyle: const TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 18,
+                        color: Color(0xFFF1F1F1),
+                        fontWeight: FontWeight.normal,
+                      ),
                       hintText: "",
                       counterText: "",
                       border: OutlineInputBorder(
@@ -355,10 +406,15 @@ class _RegistrationScreen
                         borderSide:
                             const BorderSide(color: Colors.black, width: 1.0),
                       ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 3, color: Color(0xFFF1F1F1)),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.blue, width: 2.0),
+                        borderSide: const BorderSide(
+                            color: Color(0xFF3466AA), width: 2.0),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -387,11 +443,18 @@ class _RegistrationScreen
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                   child: TextFormField(
+                    style: const TextStyle(color: Color(0xFFF1F1F1)),
                     maxLength: 6,
                     controller: regPasswordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: "Password",
+                      labelStyle: const TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 18,
+                        color: Color(0xFFF1F1F1),
+                        fontWeight: FontWeight.normal,
+                      ),
                       hintText: "",
                       counterText: "",
                       border: OutlineInputBorder(
@@ -399,10 +462,15 @@ class _RegistrationScreen
                         borderSide:
                             const BorderSide(color: Colors.black, width: 1.0),
                       ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            width: 3, color: Color(0xFFF1F1F1)),
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.blue, width: 2.0),
+                        borderSide: const BorderSide(
+                            color: Color(0xFF3466AA), width: 2.0),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
@@ -461,6 +529,7 @@ class _RegistrationScreen
                                   content: Text(
                                 'Registration Failed!',
                                 style: TextStyle(
+                                  color: Color(0xFFF1F1F1),
                                   fontFamily: 'OpenSans',
                                   fontSize: 16,
                                   fontWeight: FontWeight.normal,
@@ -473,6 +542,7 @@ class _RegistrationScreen
                           'Submit',
                           style: TextStyle(
                             fontFamily: 'OpenSans',
+                            color: Color(0xFFF1F1F1),
                             fontSize: 18,
                             fontWeight: FontWeight.normal,
                           ),
@@ -521,6 +591,7 @@ class _RegistrationScreen
         'Registration Failed !',
         style: TextStyle(
           fontFamily: 'OpenSans',
+          color: Color(0xFFF1F1F1),
           fontSize: 16,
           fontWeight: FontWeight.normal,
         ),
@@ -569,6 +640,7 @@ class _StateWidgetState extends State<StateWidget> {
             items,
             style: const TextStyle(
               fontFamily: 'OpenSans',
+              color: Color(0xFFF1F1F1),
               fontSize: 16,
               fontWeight: FontWeight.normal,
             ),
