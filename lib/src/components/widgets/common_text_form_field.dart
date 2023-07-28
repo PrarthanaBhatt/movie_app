@@ -5,21 +5,34 @@ class CommonTextFormField extends StatelessWidget {
   final String labelText;
   final TextEditingController controller;
   final int? maxLength;
-
+  final bool obscureText;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
+  final TextStyle? style;
+  final TextStyle? labelStyle;
+  final TextCapitalization? textCapitalization;
+  final Widget? suffixIcon;
+  final bool? readOnly;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
+  final void Function()? onTap;
 
   const CommonTextFormField({
     super.key,
     required this.labelText,
     required this.controller,
     this.maxLength,
+    this.obscureText = false,
     this.keyboardType,
     this.inputFormatters,
+    this.style,
+    this.labelStyle,
+    this.textCapitalization,
+    this.suffixIcon,
+    this.readOnly = false,
     this.onChanged,
     this.validator,
+    this.onTap,
   });
 
   @override
@@ -29,10 +42,12 @@ class CommonTextFormField extends StatelessWidget {
       child: TextFormField(
         keyboardType: keyboardType,
         style: const TextStyle(color: Color(0xFFF1F1F1)),
-        inputFormatters:
-            inputFormatters ?? [FilteringTextInputFormatter.digitsOnly],
+        inputFormatters: inputFormatters,
+        textCapitalization: TextCapitalization.words,
         maxLength: maxLength,
+        obscureText: obscureText,
         controller: controller,
+        readOnly: readOnly!,
         decoration: InputDecoration(
           labelText: labelText,
           labelStyle: const TextStyle(
@@ -43,6 +58,8 @@ class CommonTextFormField extends StatelessWidget {
           ),
           hintText: "",
           counterText: "",
+          suffixIcon: suffixIcon,
+          suffixIconColor: const Color(0xFFF1F1F1),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20.0),
             borderSide: const BorderSide(color: Colors.white, width: 1.0),
@@ -67,6 +84,7 @@ class CommonTextFormField extends StatelessWidget {
               const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
         ),
         validator: validator,
+        onTap: onTap,
       ),
     );
   }

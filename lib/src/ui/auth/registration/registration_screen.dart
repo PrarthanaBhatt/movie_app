@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import 'package:movie_app/src/components/base/base_consumer_state.dart';
+import 'package:movie_app/src/components/widgets/common_text_form_field.dart';
 import 'package:movie_app/src/constants/enum/gender.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
 import 'package:movie_app/src/routes/routes.dart';
@@ -77,190 +78,62 @@ class _RegistrationScreen
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                  child: TextFormField(
-                    style: const TextStyle(color: Color(0xFFF1F1F1)),
-                    textCapitalization: TextCapitalization.words,
-                    keyboardType: TextInputType.text,
-                    controller: regNameController,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
-                      FilteringTextInputFormatter.deny(RegExp(r"^\s*")),
-                    ],
-                    decoration: InputDecoration(
-                      labelText: "Name",
-                      labelStyle: const TextStyle(
-                        fontFamily: 'OpenSans',
-                        fontSize: 18,
-                        color: Color(0xFFF1F1F1),
-                        fontWeight: FontWeight.normal,
-                      ),
-                      hintText: "",
-                      counterText: "",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.black, width: 1.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            width: 3, color: Color(0xFFF1F1F1)),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: const BorderSide(
-                            color: Color(0xFF3466AA), width: 2.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 2.0),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 12.0, horizontal: 12.0),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your name';
-                      }
-                      return null;
-                    },
-                  ),
+                CommonTextFormField(
+                  keyboardType: TextInputType.text,
+                  textCapitalization: TextCapitalization.words,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
+                    FilteringTextInputFormatter.deny(RegExp(r"^\s*")),
+                  ],
+                  labelText: 'Name',
+                  controller: regNameController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    return null;
+                  },
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                  child: TextFormField(
-                    controller: regEmailController,
-                    style: const TextStyle(color: Color(0xFFF1F1F1)),
-                    decoration: InputDecoration(
-                      fillColor: Color(0xFFF1F1F1),
-                      labelText: "Email",
-                      labelStyle: const TextStyle(
-                        fontFamily: 'OpenSans',
-                        fontSize: 18,
-                        color: Color(0xFFF1F1F1),
-                        fontWeight: FontWeight.normal,
-                      ),
-                      hintText: "",
-                      counterText: "",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.black, width: 1.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            width: 3, color: Color(0xFFF1F1F1)),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.blue, width: 2.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 2.0),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 12.0, horizontal: 12.0),
-                    ),
-                    validator: (value) {
-                      if (value == null ||
-                          value.isEmpty ||
-                          !value.contains('@') ||
-                          !value.contains('.')) {
-                        return 'Please enter your email';
-                      }
-                      return null;
-                    },
-                  ),
+                CommonTextFormField(
+                  labelText: 'Email',
+                  controller: regEmailController,
+                  validator: (value) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        !value.contains('@') ||
+                        !value.contains('.')) {
+                      return 'Please enter your email';
+                    }
+                    return null;
+                  },
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                  child: TextFormField(
-                    controller: regDobController,
-                    style: const TextStyle(color: Color(0xFFF1F1F1)),
-                    decoration: InputDecoration(
-                      labelText: "DOB",
-                      labelStyle: const TextStyle(
-                        fontFamily: 'OpenSans',
-                        fontSize: 18,
-                        color: Color(0xFFF1F1F1),
-                        fontWeight: FontWeight.normal,
-                      ),
-                      hintText: "",
-                      counterText: "",
-                      suffixIcon: const Icon(Icons.calendar_today),
-                      suffixIconColor: const Color(0xFFF1F1F1),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.black, width: 1.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            width: 3, color: Color(0xFFF1F1F1)),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: const BorderSide(
-                            color: Color(0xFF3466AA), width: 2.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 2.0),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 12.0, horizontal: 12.0),
-                    ),
-                    readOnly: true,
-                    onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1950),
-                          lastDate: DateTime.now());
-                      if (pickedDate != null) {
-                        String formattedDate =
-                            DateFormat('dd-MM-yyyy').format(pickedDate);
-                        setState(() {
-                          regDobController.text = formattedDate;
-                        });
-                      } else {
-                        print("Date is not selected");
-                      }
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your Date of Birth';
-                      }
-                      return null;
-                    },
-                  ),
+                CommonTextFormField(
+                  labelText: 'DOB',
+                  controller: regDobController,
+                  suffixIcon: const Icon(Icons.calendar_today),
+                  readOnly: true,
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1950),
+                        lastDate: DateTime.now());
+                    if (pickedDate != null) {
+                      String formattedDate =
+                          DateFormat('dd-MM-yyyy').format(pickedDate);
+                      setState(() {
+                        regDobController.text = formattedDate;
+                      });
+                    } else {
+                      print("Date is not selected");
+                    }
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your Date of Birth';
+                    }
+                    return null;
+                  },
                 ),
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
@@ -382,118 +255,34 @@ class _RegistrationScreen
                     ),
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    style: const TextStyle(color: Color(0xFFF1F1F1)),
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    maxLength: 10,
-                    controller: regMobileNumberController,
-                    decoration: InputDecoration(
-                      labelText: "Mobile Number",
-                      labelStyle: const TextStyle(
-                        fontFamily: 'OpenSans',
-                        fontSize: 18,
-                        color: Color(0xFFF1F1F1),
-                        fontWeight: FontWeight.normal,
-                      ),
-                      hintText: "",
-                      counterText: "",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.black, width: 1.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            width: 3, color: Color(0xFFF1F1F1)),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: const BorderSide(
-                            color: Color(0xFF3466AA), width: 2.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 2.0),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 12.0, horizontal: 12.0),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your mobile number';
-                      } else if (value.length != 10) {
-                        return 'Please enter 10 digit mobile number';
-                      }
-                      return null;
-                    },
-                  ),
+                CommonTextFormField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  maxLength: 10,
+                  labelText: 'Mobile Number',
+                  controller: regMobileNumberController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your mobile number';
+                    } else if (value.length != 10) {
+                      return 'Please enter 10 digit mobile number';
+                    }
+                    return null;
+                  },
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                  child: TextFormField(
-                    style: const TextStyle(color: Color(0xFFF1F1F1)),
-                    maxLength: 6,
-                    controller: regPasswordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                      labelStyle: const TextStyle(
-                        fontFamily: 'OpenSans',
-                        fontSize: 18,
-                        color: Color(0xFFF1F1F1),
-                        fontWeight: FontWeight.normal,
-                      ),
-                      hintText: "",
-                      counterText: "",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.black, width: 1.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            width: 3, color: Color(0xFFF1F1F1)),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: const BorderSide(
-                            color: Color(0xFF3466AA), width: 2.0),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 1.0),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide:
-                            const BorderSide(color: Colors.red, width: 2.0),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 12.0, horizontal: 12.0),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      } else if (value.length < 6) {
-                        return 'Please enter password correctly, it is less then 6 charachters';
-                      }
-                      return null;
-                    },
-                  ),
+                CommonTextFormField(
+                  maxLength: 6,
+                  labelText: 'Password',
+                  controller: regPasswordController,
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your password';
+                    } else if (value.length < 6) {
+                      return 'Please enter password correctly, it is less then 6 charachters';
+                    }
+                    return null;
+                  },
                 ),
                 Padding(
                   padding:

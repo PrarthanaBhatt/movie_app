@@ -61,118 +61,26 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                   return null;
                 },
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  style: const TextStyle(color: Color(0xFFF1F1F1)),
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  maxLength: 10,
-                  controller: mobileNumberController,
-                  decoration: InputDecoration(
-                    labelText: "Mobile Number",
-                    labelStyle: const TextStyle(
-                      fontFamily: 'OpenSans',
-                      fontSize: 18,
-                      color: Color(0xFFF1F1F1),
-                      fontWeight: FontWeight.normal,
-                    ),
-                    hintText: "",
-                    counterText: "",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide:
-                          const BorderSide(color: Colors.white, width: 1.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(width: 3, color: Color(0xFFF1F1F1)),
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                          color: Color(0xFF3466AA), width: 2.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide:
-                          const BorderSide(color: Colors.red, width: 1.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide:
-                          const BorderSide(color: Colors.red, width: 2.0),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 12.0, horizontal: 12.0),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your mobile number';
-                    } else if (value.length != 10) {
-                      return 'Please enter 10 digit mobile number';
-                    }
-                    return null;
-                  },
+              CommonTextFormField(
+                maxLength: 6,
+                labelText: 'Password',
+                obscureText: true,
+                controller: passwordController,
+                style: const TextStyle(
+                  letterSpacing: 6,
+                  color: Color(0xFFF1F1F1),
+                  fontSize: 12,
+                  fontWeight: FontWeight.normal,
+                  fontFamily: "OpenSans",
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                child: TextFormField(
-                  style: const TextStyle(color: Color(0xFFF1F1F1)),
-                  maxLength: 6,
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    labelStyle: const TextStyle(
-                      fontFamily: 'OpenSans',
-                      fontSize: 18,
-                      color: Color(0xFFF1F1F1),
-                      fontWeight: FontWeight.normal,
-                    ),
-                    hintText: "",
-                    counterText: "",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide:
-                          const BorderSide(color: Colors.white, width: 1.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          const BorderSide(width: 3, color: Color(0xFFF1F1F1)),
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                          color: Color(0xFF3466AA), width: 2.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide:
-                          const BorderSide(color: Colors.red, width: 1.0),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide:
-                          const BorderSide(color: Colors.red, width: 2.0),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 12.0, horizontal: 12.0),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    } else if (value.length < 6) {
-                      return 'Please enter password correctly, it is less then 6 charachters';
-                    }
-                    return null;
-                  },
-                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your password';
+                  } else if (value.length < 6) {
+                    return 'Please enter password correctly, it is less then 6 charachters';
+                  }
+                  return null;
+                },
               ),
               Padding(
                 padding:
