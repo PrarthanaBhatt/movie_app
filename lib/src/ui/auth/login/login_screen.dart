@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app/src/components/base/base_consumer_state.dart';
+import 'package:movie_app/src/components/widgets/common_app_button.dart';
 import 'package:movie_app/src/components/widgets/common_text_form_field.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
 import 'package:movie_app/src/routes/routes.dart';
@@ -82,44 +83,18 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                   return null;
                 },
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 12.0),
-                child: Center(
-                  child: SizedBox(
-                    width: double.maxFinite,
-                    height: 45,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 24.0),
-                        backgroundColor: const Color(0xFF3466AA),
-                      ),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          viewModel.validateLogin(mobileNumberController.text,
-                              passwordController.text, _onSuccess, _onFailure);
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Invalid Crediential!')),
-                          );
-                        }
-                      },
-                      child: const Text(
-                        'Submit',
-                        style: TextStyle(
-                          fontFamily: 'OpenSans',
-                          fontSize: 18,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+              CommonAppButton(
+                text: 'Submit',
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    viewModel.validateLogin(mobileNumberController.text,
+                        passwordController.text, _onSuccess, _onFailure);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Invalid Crediential!')),
+                    );
+                  }
+                },
               ),
               const SizedBox(
                 height: 30,

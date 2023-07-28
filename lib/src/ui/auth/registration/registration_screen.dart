@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import 'package:movie_app/src/components/base/base_consumer_state.dart';
+import 'package:movie_app/src/components/widgets/common_app_button.dart';
 import 'package:movie_app/src/components/widgets/common_text_form_field.dart';
 import 'package:movie_app/src/constants/enum/gender.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
@@ -284,61 +285,35 @@ class _RegistrationScreen
                     return null;
                   },
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 12.0),
-                  child: Center(
-                    child: SizedBox(
-                      width: double.maxFinite,
-                      height: 45,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 24.0),
-                          backgroundColor: const Color(0xFF073376),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            viewModel.validateRegistration(
-                                regNameController.text,
-                                regEmailController.text,
-                                regDobController.text,
-                                gender.name,
-                                stateValue,
-                                regMobileNumberController.text,
-                                regPasswordController.text,
-                                _onSuccess,
-                                _onFailure);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                'Registration Failed!',
-                                style: TextStyle(
-                                  color: Color(0xFFF1F1F1),
-                                  fontFamily: 'OpenSans',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              )),
-                            );
-                          }
-                        },
-                        child: const Text(
-                          'Submit',
+                CommonAppButton(
+                  text: 'Submit',
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      viewModel.validateRegistration(
+                          regNameController.text,
+                          regEmailController.text,
+                          regDobController.text,
+                          gender.name,
+                          stateValue,
+                          regMobileNumberController.text,
+                          regPasswordController.text,
+                          _onSuccess,
+                          _onFailure);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text(
+                          'Registration Failed!',
                           style: TextStyle(
-                            fontFamily: 'OpenSans',
                             color: Color(0xFFF1F1F1),
-                            fontSize: 18,
+                            fontFamily: 'OpenSans',
+                            fontSize: 16,
                             fontWeight: FontWeight.normal,
                           ),
-                        ),
-                      ),
-                    ),
-                  ),
+                        )),
+                      );
+                    }
+                  },
                 ),
               ],
             ),
