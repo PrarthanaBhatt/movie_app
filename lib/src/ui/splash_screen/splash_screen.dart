@@ -31,8 +31,6 @@ class _SplashScreenState extends State<SplashScreen> {
     if (getLoggedIn != null && getLoggedIn) {
       context.go(Routes.loginScreen);
 
-      // context.go(Routes.movieDBDashboardScreen);
-
       //INFO: When to load the API response from provider use below
       // context.go(Routes.dashboardProvider);
     } else {
@@ -61,41 +59,27 @@ class _SplashScreenState extends State<SplashScreen> {
                 const SizedBox(
                   height: 80,
                 ),
-                Stack(
-                  alignment: AlignmentDirectional.topCenter,
-                  children: [
-                    // Container(
-                    //   width: MediaQuery.of(context).size.width * 0.56,
-                    //   height: MediaQuery.of(context).size.height * 0.12,
-                    //   decoration: BoxDecoration(
-                    //       border: Border.all(
-                    //           color: const Color(0xFFF1F1F1), width: 1),
-                    //       borderRadius:
-                    //           const BorderRadius.all(Radius.circular(20))),
-                    // ),
-                    Column(
-                      children: const [
-                        Text(
-                          "CineWorld",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'PlayfairDisplay',
-                            fontSize: 34,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "Your Personal Movie Guide",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'PlayfairDisplay',
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                Column(
+                  children: const [
+                    Text(
+                      "CineWorld",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'PlayfairDisplay',
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "Your Personal Movie Guide",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'PlayfairDisplay',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),

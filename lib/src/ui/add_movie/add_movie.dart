@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:movie_app/src/components/widgets/common_app_button.dart';
+import 'package:movie_app/src/components/widgets/common_text_form_field.dart';
 import 'package:movie_app/src/models/movie.dart';
 import 'package:movie_app/src/utils/helpers/movie_sql_helper.dart';
 
@@ -21,9 +23,18 @@ class _AddMovieState extends ConsumerState<AddMovie> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF28282B),
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: const Text("Add Movie"),
+        title: const Text(
+          "Add Movie",
+          style: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            color: Color(0xFFF1F1F1),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         backgroundColor: Colors.black45,
       ),
       body: Form(
@@ -34,34 +45,21 @@ class _AddMovieState extends ConsumerState<AddMovie> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 12.0),
-                  child: TextFormField(
-                    textCapitalization: TextCapitalization.words,
-                    keyboardType: TextInputType.text,
-                    controller: movieNameController,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
-                      FilteringTextInputFormatter.deny(RegExp(r"^\s*")),
-                    ],
-                    decoration: const InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue),
-                      ),
-                      border: UnderlineInputBorder(),
-                      labelText: "Movie Name",
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter movie name';
-                      }
-                      return null;
-                    },
-                  ),
+                CommonTextFormField(
+                  keyboardType: TextInputType.text,
+                  textCapitalization: TextCapitalization.words,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
+                    FilteringTextInputFormatter.deny(RegExp(r"^\s*")),
+                  ],
+                  labelText: 'Movie Name',
+                  controller: movieNameController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter movie name';
+                    }
+                    return null;
+                  },
                 ),
                 if (image != null)
                   Container(
@@ -81,7 +79,8 @@ class _AddMovieState extends ConsumerState<AddMovie> {
                     width: MediaQuery.of(context).size.width * 0.25,
                     child: IconButton(
                       padding: const EdgeInsets.all(10.0),
-                      icon: const Icon(Icons.add_a_photo_outlined, size: 55.0),
+                      icon: const Icon(Icons.add_a_photo_outlined,
+                          color: Color(0xFFF1F1F1), size: 55.0),
                       onPressed: () async {
                         try {
                           final XFile? xFile = await ImagePicker()
@@ -95,54 +94,35 @@ class _AddMovieState extends ConsumerState<AddMovie> {
                       },
                     ),
                   ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 12.0),
-                  child: Center(
-                    child: SizedBox(
-                      width: double.maxFinite,
-                      height: 45,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            //INFO: Below code when adding new data using Movie model and rendering UI using statenotifierprovider
-                            // final holder = Movie(
-                            //     title: movieNameController.text,
-                            //     posterPath: "",
-                            //     overview: "",
-                            //     backdropPath: "",
-                            //     releaseDate: "",
-                            //     originalLanguage: "",
-                            //     originalTitle: movieNameController.text,
-                            //     imagePath: image);
+                CommonAppButton(
+                  text: 'Add',
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      //INFO: Below code when adding new data using Movie model and rendering UI using statenotifierprovider
+                      // final holder = Movie(
+                      //     title: movieNameController.text,
+                      //     posterPath: "",
+                      //     overview: "",
+                      //     backdropPath: "",
+                      //     releaseDate: "",
+                      //     originalLanguage: "",
+                      //     originalTitle: movieNameController.text,
+                      //     imagePath: image);
 
-                            // Navigator.pop(context, holder);
+                      // Navigator.pop(context, holder);
 
-                            //INFO: Below code when need to add new record to the database and rendering list from DB
-                            const String holderValue = "Item added";
-                            MovieSQLHelper.createItem(
-                                movieNameController.text,
-                                "",
-                                "Random Test image description ",
-                                "",
-                                "",
-                                "en",
-                                "");
-                            Navigator.pop(context, holderValue);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Failed to add new movie!')),
-                            );
-                          }
-                        },
-                        child: const Text(
-                          'Add',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ),
+                      //INFO: Below code when need to add new record to the database and rendering list from DB
+                      const String holderValue = "Item added";
+                      MovieSQLHelper.createItem(movieNameController.text, "",
+                          "Random Test image description ", "", "", "en", "");
+                      Navigator.pop(context, holderValue);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Failed to add new movie!')),
+                      );
+                    }
+                  },
                 ),
               ],
             ),

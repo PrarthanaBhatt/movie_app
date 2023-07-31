@@ -14,7 +14,7 @@ class CommonTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool? readOnly;
   final Function(String)? onChanged;
-  final String? Function(String?)? validator;
+  final Function(String?)? validator;
   final void Function()? onTap;
 
   const CommonTextFormField({
@@ -83,8 +83,9 @@ class CommonTextFormField extends StatelessWidget {
           contentPadding:
               const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
         ),
-        validator: validator,
+        validator: (str) => validator!.call(str),
         onTap: onTap,
+        onChanged: onChanged,
       ),
     );
   }

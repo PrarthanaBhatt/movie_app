@@ -59,6 +59,7 @@ class _DashboardConsumerState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF28282B),
       appBar: AppBar(
         title: Text("Movie ${_movieDbList.length} [test sqlite]"),
         backgroundColor: Colors.black45,
@@ -119,7 +120,8 @@ class _DashboardConsumerState
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0)),
               elevation: 0,
-              color: Theme.of(context).colorScheme.surfaceVariant,
+              // color: Theme.of(context).colorScheme.surfaceVariant,
+              color: const Color(0xFFF1F1F1),
               child: Row(
                 children: [
                   Flexible(
@@ -164,6 +166,12 @@ class _DashboardConsumerState
                                   const EdgeInsets.only(top: 8.0, left: 8.0),
                               child: Text(
                                 movie['title'],
+                                style: const TextStyle(
+                                  color: Color(0xFF28282B),
+                                  fontFamily: 'OpenSans',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
@@ -173,7 +181,12 @@ class _DashboardConsumerState
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
                               movie['overview'],
-                              style: const TextStyle(fontSize: 12),
+                              style: const TextStyle(
+                                color: Color(0xFF28282B),
+                                fontFamily: 'OpenSans',
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                              ),
                               softWrap: true,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 3,
@@ -188,15 +201,15 @@ class _DashboardConsumerState
                             children: const [
                               Icon(
                                 Icons.favorite,
-                                color: Colors.black45,
+                                color: Color(0xFF114084),
                               ),
                               Icon(
                                 Icons.add_circle_outline,
-                                color: Colors.black45,
+                                color: Color(0xFF114084),
                               ),
                               Icon(
                                 Icons.remove_circle_outline,
-                                color: Colors.black45,
+                                color: Color(0xFF114084),
                               ),
                             ],
                           ),

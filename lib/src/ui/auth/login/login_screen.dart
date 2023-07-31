@@ -53,6 +53,9 @@ class _LoginScreen extends BaseConsumerState<LoginScreen, LoginScreenVm> {
                 maxLength: 10,
                 labelText: 'Mobile Number',
                 controller: mobileNumberController,
+                onChanged: (value) {
+                  print("Value changes $value");
+                },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your mobile number';
