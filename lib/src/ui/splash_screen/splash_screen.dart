@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final getLoggedIn = await SharedPrefValue.getPrefValue(isLoggedIn, bool);
 
     if (getLoggedIn != null && getLoggedIn) {
-      context.go(Routes.loginScreen);
+      context.go(Routes.movieDBDashboardScreen);
 
       //INFO: When to load the API response from provider use below
       // context.go(Routes.dashboardProvider);

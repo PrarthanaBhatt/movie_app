@@ -33,29 +33,34 @@ class MovieService {
 
       MovieSQLHelper.deleteItems();
 
-      for (var item in results) {
-        MovieSQLHelper.createItem(
-            item['title'],
-            item['poster_path'],
-            item['overview'],
-            item['backdrop_path'],
-            item['release_date'],
-            item['original_language'],
-            item['original_title']);
-        print("Result ===> $results");
+      if (results.isNotEmpty) {
+        for (var item in results) {
+          await MovieSQLHelper.createItem(
+              item['title'],
+              item['poster_path'],
+              item['overview'],
+              item['backdrop_path'],
+              item['release_date'],
+              item['original_language'],
+              item['original_title']);
+          print("Result ===> $results");
+        }
       }
 
+      MovieSQLHelper.getItems();
+
       //INFO: When to load the API response from provider use below
-      List<Movie> movies =
-          results.map((movieData) => Movie.fromMap(movieData)).toList();
-      return movies;
+      // List<Movie> movies =
+      // results.map((movieData) => Movie.fromMap(movieData)).toList();
+
+      // return movies;
 
       //INFO: When to load the API response from SQLite
 
-      // final Future<List<Movie>> data =
-      //     MovieSQLHelper.getItems() as Future<List<Movie>>;
+      final Future<List<Movie>> data =
+          MovieSQLHelper.getItems() as Future<List<Movie>>;
 
-      // return data;
+      return data;
     } on DioException catch (dioError) {
       throw MoviesException.fromDioError(dioError);
     }

@@ -32,7 +32,10 @@ class _DashboardConsumerState
   void checkInternet() async {
     isConnected = await checkInternetConnectivity();
     if (isConnected) {
-      movieService = ref.watch(movieProvider);
+      movieService = await ref.watch(movieProvider);
+      const delayDuration = Duration(seconds: 2);
+      await Future.delayed(delayDuration);
+      _refreshMovieList();
       print('Internet is available.');
     } else {
       _refreshMovieList();
@@ -51,7 +54,6 @@ class _DashboardConsumerState
   void initState() {
     super.initState();
     checkInternet();
-    _refreshMovieList();
 
     print("...number of items ${_movieDbList.length}");
   }
