@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app/src/components/base/base_consumer_state.dart';
-import 'package:movie_app/src/components/widgets/movie_list_tile.dart';
+import 'package:movie_app/src/components/widgets/shimmer_widget.dart';
+import 'package:movie_app/src/constants/sharedpref_value.dart';
 import 'package:movie_app/src/models/movie.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
 import 'package:movie_app/src/routes/routes.dart';
@@ -12,8 +13,6 @@ import 'package:movie_app/src/ui/dashboard_provider/dashboard_provider_notifier.
 import 'package:movie_app/src/utils/constant.dart';
 import 'package:movie_app/src/utils/helpers/movie_sql_helper.dart';
 import 'package:movie_app/src/utils/internet_connectivity.dart';
-
-import '../../constants/sharedpref_value.dart';
 
 class MovieDBDashboardScreen extends ConsumerStatefulWidget {
   const MovieDBDashboardScreen({super.key});
@@ -25,6 +24,7 @@ class MovieDBDashboardScreen extends ConsumerStatefulWidget {
 
 class _DashboardConsumerState
     extends BaseConsumerState<MovieDBDashboardScreen, MovieDashboardVm> {
+  bool isLoading = false;
   List<Map<String, dynamic>> _movieDbList = [];
   bool isConnected = false;
   List<Movie> movieService = [];
@@ -33,8 +33,8 @@ class _DashboardConsumerState
     isConnected = await checkInternetConnectivity();
     if (isConnected) {
       movieService = await ref.watch(movieProvider);
-      const delayDuration = Duration(seconds: 2);
-      await Future.delayed(delayDuration);
+      // const delayDuration = Duration(seconds: 2);
+      // await Future.delayed(delayDuration);
       _refreshMovieList();
       print('Internet is available.');
     } else {
@@ -44,9 +44,15 @@ class _DashboardConsumerState
   }
 
   void _refreshMovieList() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    await Future.delayed(const Duration(seconds: 2), () {});
     final data = await MovieSQLHelper.getItems();
     setState(() {
       _movieDbList = data;
+      isLoading = false;
     });
   }
 
@@ -66,6 +72,14 @@ class _DashboardConsumerState
         title: Text("Movie ${_movieDbList.length} [test sqlite]"),
         backgroundColor: Colors.black45,
         actions: [
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: GestureDetector(
+                onTap: () {
+                  _refreshMovieList();
+                },
+                child: const Icon(Icons.refresh)),
+          ),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: GestureDetector(
@@ -96,133 +110,138 @@ class _DashboardConsumerState
       ),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-        itemCount: _movieDbList.length,
+        itemCount: isLoading ? 10 : _movieDbList.length,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-          final Map<String, dynamic> movie = _movieDbList[index];
+          if (isLoading) {
+            return buildShimmer(context);
+          } else {
+            final Map<String, dynamic> movie = _movieDbList[index];
 
-          return GestureDetector(
-            onTap: () {
-              (movie['originalTitle'] != "")
-                  ? context.pushNamed(
-                      Routes.movieDetails,
-                      pathParameters: {
-                        "overview": movie['overview'],
-                        "backdropPath": movie['backdropPath'],
-                        "releaseDate": movie['releaseDate'],
-                        "originalLanguage": movie['originalLanguage'],
-                        "originalTitle": movie['originalTitle'],
-                      },
-                    )
-                  : ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('No Data Found')),
-                    );
-            },
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0)),
-              elevation: 0,
-              // color: Theme.of(context).colorScheme.surfaceVariant,
-              color: const Color(0xFFF1F1F1),
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Hero(
-                      tag: 'movieCard1',
-                      transitionOnUserGestures: true,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          movie['posterPath'],
-                          fit: BoxFit.cover,
-                          width: 130,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset(
-                                    'assets/png/no_img_found.png',
-                                    fit: BoxFit.cover,
-                                    width: 130,
+            return GestureDetector(
+              onTap: () {
+                (movie['originalTitle'] != "")
+                    ? context.pushNamed(
+                        Routes.movieDetails,
+                        pathParameters: {
+                          "overview": movie['overview'],
+                          "backdropPath": movie['backdropPath'],
+                          "releaseDate": movie['releaseDate'],
+                          "originalLanguage": movie['originalLanguage'],
+                          "originalTitle": movie['originalTitle'],
+                        },
+                      )
+                    : ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('No Data Found')),
+                      );
+              },
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0)),
+                elevation: 0,
+                // color: Theme.of(context).colorScheme.surfaceVariant,
+                color: const Color(0xFFF1F1F1),
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Hero(
+                        tag: 'movieCard1',
+                        transitionOnUserGestures: true,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            movie['posterPath'],
+                            fit: BoxFit.cover,
+                            width: 130,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.asset(
+                                      'assets/png/no_img_found.png',
+                                      fit: BoxFit.cover,
+                                      width: 130,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            );
-                          },
+                                ],
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.20,
-                    width: MediaQuery.of(context).size.width * 0.55,
-                    child: Column(
-                      children: [
-                        Flexible(
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, left: 8.0),
-                              child: Text(
-                                movie['title'],
-                                style: const TextStyle(
-                                  color: Color(0xFF28282B),
-                                  fontFamily: 'OpenSans',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.20,
+                      width: MediaQuery.of(context).size.width * 0.55,
+                      child: Column(
+                        children: [
+                          Flexible(
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 8.0, left: 8.0),
+                                child: Text(
+                                  movie['title'],
+                                  style: const TextStyle(
+                                    color: Color(0xFF28282B),
+                                    fontFamily: 'OpenSans',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Flexible(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Text(
-                              movie['overview'],
-                              style: const TextStyle(
-                                color: Color(0xFF28282B),
-                                fontFamily: 'OpenSans',
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
+                          Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text(
+                                movie['overview'],
+                                style: const TextStyle(
+                                  color: Color(0xFF28282B),
+                                  fontFamily: 'OpenSans',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
                               ),
-                              softWrap: true,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 3,
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 16.0, top: 20.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Icon(
-                                Icons.favorite,
-                                color: Color(0xFF114084),
-                              ),
-                              Icon(
-                                Icons.add_circle_outline,
-                                color: Color(0xFF114084),
-                              ),
-                              Icon(
-                                Icons.remove_circle_outline,
-                                color: Color(0xFF114084),
-                              ),
-                            ],
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 16.0, top: 20.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Icon(
+                                  Icons.favorite,
+                                  color: Color(0xFF114084),
+                                ),
+                                Icon(
+                                  Icons.add_circle_outline,
+                                  color: Color(0xFF114084),
+                                ),
+                                Icon(
+                                  Icons.remove_circle_outline,
+                                  color: Color(0xFF114084),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          );
+            );
+          }
         },
       ),
     );
@@ -233,3 +252,16 @@ class _DashboardConsumerState
     return ref.read(movieDashboardProvider);
   }
 }
+
+Widget buildShimmer(context) => ListTile(
+    leading: ShimmerWidget.circular(
+      width: 74,
+      height: 74,
+      shapeBorder:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    ),
+    title: Align(
+        alignment: Alignment.centerLeft,
+        child: ShimmerWidget.rectagular(
+            width: MediaQuery.of(context).size.width * 0.3, height: 16)),
+    subtitle: const ShimmerWidget.rectagular(height: 12));
