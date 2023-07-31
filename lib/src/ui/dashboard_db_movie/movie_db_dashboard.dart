@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:movie_app/src/components/base/base_consumer_state.dart';
 import 'package:movie_app/src/components/widgets/shimmer_widget.dart';
+import 'package:movie_app/src/components/widgets/text_details_shimmer.dart';
 import 'package:movie_app/src/constants/sharedpref_value.dart';
 import 'package:movie_app/src/models/movie.dart';
 import 'package:movie_app/src/providers/view_model_providers.dart';
@@ -13,6 +14,7 @@ import 'package:movie_app/src/ui/dashboard_provider/dashboard_provider_notifier.
 import 'package:movie_app/src/utils/constant.dart';
 import 'package:movie_app/src/utils/helpers/movie_sql_helper.dart';
 import 'package:movie_app/src/utils/internet_connectivity.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MovieDBDashboardScreen extends ConsumerStatefulWidget {
   const MovieDBDashboardScreen({super.key});
@@ -69,7 +71,7 @@ class _DashboardConsumerState
     return Scaffold(
       backgroundColor: const Color(0xFF28282B),
       appBar: AppBar(
-        title: Text("Movie ${_movieDbList.length} [test sqlite]"),
+        title: Text("Movie ${_movieDbList.length}"),
         backgroundColor: Colors.black45,
         actions: [
           Padding(
@@ -114,7 +116,8 @@ class _DashboardConsumerState
         shrinkWrap: true,
         itemBuilder: (context, index) {
           if (isLoading) {
-            return buildShimmer(context);
+            // return buildShimmer(context);
+            return loadingShimmer(context);
           } else {
             final Map<String, dynamic> movie = _movieDbList[index];
 
@@ -255,8 +258,8 @@ class _DashboardConsumerState
 
 Widget buildShimmer(context) => ListTile(
     leading: ShimmerWidget.circular(
-      width: 74,
-      height: 74,
+      width: 125,
+      height: 185,
       shapeBorder:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
     ),
@@ -265,3 +268,39 @@ Widget buildShimmer(context) => ListTile(
         child: ShimmerWidget.rectagular(
             width: MediaQuery.of(context).size.width * 0.3, height: 16)),
     subtitle: const ShimmerWidget.rectagular(height: 12));
+
+Widget loadingShimmer(context) => Shimmer.fromColors(
+    baseColor: Colors.grey.shade400,
+    highlightColor: Colors.grey.shade300,
+    child: Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 110,
+            width: 110,
+            decoration: BoxDecoration(
+                color: Colors.grey, borderRadius: BorderRadius.circular(10)),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: Column(
+              children: const [
+                TextDetailsShimmer(),
+                SizedBox(
+                  height: 8,
+                ),
+                TextDetailsShimmer(),
+                SizedBox(
+                  height: 8,
+                ),
+                TextDetailsShimmer(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ));
